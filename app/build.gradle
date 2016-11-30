@@ -1,0 +1,102 @@
+apply plugin: 'com.android.application'
+
+android {
+
+    compileSdkVersion 23
+    buildToolsVersion "23.0.3"
+    defaultConfig {
+        applicationId "com.cylan.jfgappdemo"
+        minSdkVersion 19
+        targetSdkVersion 19
+        versionCode 1
+        versionName "1.0"
+    }
+
+    signingConfigs {
+        release
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+        debug {
+            // 请注释掉以下代码。 以下为我司本地签名文件。
+            Properties properties = new Properties()
+            properties.load(project.rootProject.file('local.properties').newDataInputStream())
+            String keyPath = properties.getProperty('key.store')
+            if (keyPath != null) {
+                android.signingConfigs.debug.storeFile = file(keyPath)
+                android.signingConfigs.debug.storePassword = properties.getProperty('key.store.password')
+                android.signingConfigs.debug.keyPassword = properties.getProperty('key.alias.password')
+                android.signingConfigs.debug.keyAlias = properties.getProperty('key.alias')
+            }
+            //---------------------------------------------
+        }
+    }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+            assets.srcDirs = ['assets']
+        }
+    }
+    dataBinding {
+        enabled = true
+    }
+    lintOptions {
+        abortOnError false
+    }
+
+
+}
+
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+}
+
+if (project.hasProperty('keystoreFile') &&
+        project.hasProperty('keystorePassword') &&
+        project.hasProperty('keystoreAliasPassword')) {
+    android.signingConfigs.release.storeFile = file(keystoreFile)
+    android.signingConfigs.release.storePassword = keystorePassword
+    android.signingConfigs.release.keyPassword = keystoreAliasPassword
+    android.signingConfigs.release.keyAlias = keystoreAlias
+} else {
+    android.buildTypes.release.signingConfig = null
+}
+
+
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile files('libs/SLog-2.0.jar')
+    compile 'com.android.support:appcompat-v7:23.4.0'
+    compile 'com.android.support:recyclerview-v7:23.4.0'
+    compile 'org.greenrobot:eventbus:3.0.0'
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'com.android.support:support-v4:23.4.0'
+    compile 'com.android.support:design:23.2.1'
+    compile 'com.google.code.gson:gson:2.8.0'
+    // 以下两种形式均为引用库。我司可以直接引用本地库。贵司只能使用aar包。
+    Properties properties = new Properties()
+    properties.load(project.rootProject.file('local.properties').newDataInputStream())
+    String oem = properties.getProperty('oem')
+    if (oem.equals("cylan")) {
+        compile project(':JFGLibrary') //直接引用项目
+    } else {
+        fileTree(dir: 'libs', include: '**/*.aar')
+                .each { File file ->
+            dependencies.add("compile", [
+                    name: file.name.lastIndexOf('.').with {
+                        it != -1 ? file.name[0..<it] : file.name
+                    },
+                    ext : 'aar'
+            ])
+        }
+    }
+
+}

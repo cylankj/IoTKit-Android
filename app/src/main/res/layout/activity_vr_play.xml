@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        android:id="@+id/rl_video"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="2dp">
+
+        <TextView
+            android:id="@+id/tv_bitRate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="10dp"
+            android:textColor="@android:color/white"
+            android:textSize="14sp"
+            android:visibility="gone" />
+
+        <ProgressBar
+            android:id="@+id/pb_loading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="gone" />
+
+
+        <LinearLayout
+            android:id="@+id/ll_ctrl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="#aaaaaa"
+            android:orientation="horizontal"
+            android:padding="5dp">
+
+            <ToggleButton
+                android:id="@+id/tb_play"
+                android:layout_width="46dp"
+                android:layout_height="46dp"
+                android:background="@drawable/play_selecter"
+                android:padding="5dp"
+                android:textOff=""
+                android:textOn="" />
+
+            <CheckBox
+                android:id="@+id/cb_gyro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="Gyro"
+                android:textColor="@android:color/white" />
+
+            <CheckBox
+                android:id="@+id/cb_vr_model"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="VRModel"
+                android:textColor="@android:color/white" />
+
+            <CheckBox
+                android:id="@+id/cb_top_model"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="Top"
+                android:textColor="@android:color/white" />
+
+        </LinearLayout>
+    </RelativeLayout>
+
+</layout>
