@@ -2,9 +2,7 @@ package com.cylan.jfgappdemo.ui;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +14,6 @@ import com.cylan.jfgapp.jni.JfgAppCmd;
 import com.cylan.jfgappdemo.JfgEvent;
 import com.cylan.jfgappdemo.R;
 import com.cylan.jfgappdemo.databinding.FragmentLoginBinding;
-import com.cylan.utils.JfgUtils;
 import com.superlog.SLog;
 
 import org.greenrobot.eventbus.EventBus;

@@ -1,6 +1,6 @@
 # Summary
 
-* [简介](README.md)
+* [简介](../../README.md)
 
 * [开始工作](SDK.md)
 

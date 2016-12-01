@@ -2,14 +2,14 @@
 
 登陆主要有两种方式，标准加菲狗客户端账号登陆和第三方账号登陆。
 
-1.标准账号
+1. 标准账号
 
 ```java
   JfgAppCmd.getInstance().login(String userName, String pwd);
 ```
 
 
-2.第三方登录接口
+2. 第三方登录接口
 
 ```java
   JfgAppCmd.getInstance().openLogin(String openId,String token);

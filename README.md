@@ -4,6 +4,9 @@
 
 #[接入流程](doc/API/SDK.md)必看,非常重要！！！
 
+###[API目录](doc/API/SUMMARY.md)
+---
+
 ###更新说明
 
 
