@@ -82,7 +82,7 @@ public class LoginFragment extends BaseFragment {
                 Toast.makeText(getContext(), "login: " + userName, Toast.LENGTH_SHORT).show();
                 SLog.i("name:%s,pwd:%s", userName, pwd);
                 JfgAppCmd.getInstance().login(userName, pwd);
-//                JfgAppCmd.getInstance().openLogin("testOpenLogin", "http://yf.cylan.com.cn");
+//              JfgAppCmd.getInstance().openLogin("open_ID", "token");
             }
         });
         binding.tvRegister.setOnClickListener(new View.OnClickListener() {
