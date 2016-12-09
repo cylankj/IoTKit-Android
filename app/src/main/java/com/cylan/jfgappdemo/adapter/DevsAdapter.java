@@ -57,7 +57,15 @@ public class DevsAdapter extends RecyclerView.Adapter<DevViewHolder> {
     @Override
     public void onBindViewHolder(DevViewHolder holder, final int position) {
         final JFGDevice dev = device[position];
-        holder.getBinding().tvDevAlias.setText(dev.alias);
+        String str;
+        if (dev.alias.length() == 40) {
+            // 40位CID, 便于标识,取VID加上最后12位展示。
+            str = dev.alias.substring(0, 4) + dev.alias.substring(32);
+            SLog.i("new alias: " + str);
+        } else {
+            str = dev.alias;
+        }
+        holder.getBinding().tvDevAlias.setText(str);
         if (dev.base != null) {
             holder.getBinding().tvSsid.setText(dev.base.netName);
         }
