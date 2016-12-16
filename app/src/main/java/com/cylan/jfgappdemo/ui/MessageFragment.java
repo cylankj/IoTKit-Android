@@ -15,6 +15,7 @@ import com.cylan.entity.JfgEnum;
 import com.cylan.entity.jniCall.JFGDPMsg;
 import com.cylan.entity.jniCall.JFGDevice;
 import com.cylan.entity.jniCall.RobotoGetDataRsp;
+import com.cylan.ex.JfgException;
 import com.cylan.jfgapp.jni.JfgAppCmd;
 import com.cylan.jfgappdemo.JfgEvent;
 import com.cylan.jfgappdemo.R;
@@ -71,7 +72,11 @@ public class MessageFragment extends BaseFragment {
         binding.rvMsgList.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.rvMsgList.setAdapter(adapter);
         addLinstener();
-        getMessage(0, false);
+        try {
+            getMessage(0, false);
+        } catch (JfgException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -86,7 +91,7 @@ public class MessageFragment extends BaseFragment {
         EventBus.getDefault().unregister(this);
     }
 
-    private void getMessage(long version, boolean ase) {
+    private void getMessage(long version, boolean ase) throws JfgException {
         ArrayList<JFGDPMsg> dps = new ArrayList<>();
         dps.add(new JFGDPMsg(505, version)); // 获取某一个时间点的报警图片
         JfgAppCmd.getInstance().robotGetData(device.uuid, dps, 10, ase, 0);
@@ -94,7 +99,7 @@ public class MessageFragment extends BaseFragment {
     }
 
 
-    private void addMessageBean(RobotoGetDataRsp rsp, ArrayList<JFGDPMsg> msgs) throws IOException {
+    private void addMessageBean(RobotoGetDataRsp rsp, ArrayList<JFGDPMsg> msgs) throws IOException, JfgException {
         int len = msgs.size();
         for (int j = 0; j < len; j++) {
             JFGDPMsg dp = msgs.get(j);
@@ -107,7 +112,7 @@ public class MessageFragment extends BaseFragment {
         }
     }
 
-    private MessageBean getMessageBean(MsgWarningInfo info, String identity) {
+    private MessageBean getMessageBean(MsgWarningInfo info, String identity) throws JfgException {
         if (info.files > 7) {
             throw new UnknownError("files > 7 !");
         }
@@ -140,7 +145,11 @@ public class MessageFragment extends BaseFragment {
                 if (last != manager.getItemCount() - 1) return;
                 if (list.size() != 0) {
                     long version = list.get(last).version;
-                    getMessage(version, true); // 传入最好一天记录的版本号
+                    try {
+                        getMessage(version, true); // 传入最好一天记录的版本号
+                    } catch (JfgException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
 
@@ -204,7 +213,7 @@ public class MessageFragment extends BaseFragment {
 
 
     @Subscribe()
-    public void onRobotoGetDataRsp(RobotoGetDataRsp rsp) throws IOException {
+    public void onRobotoGetDataRsp(RobotoGetDataRsp rsp) throws IOException, JfgException {
         SLog.i(rsp.identity + " seq: " + rsp.seq);
         for (ArrayList<JFGDPMsg> list : rsp.map.values()) {
             addMessageBean(rsp, list);

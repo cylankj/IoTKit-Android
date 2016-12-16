@@ -23,6 +23,7 @@ import com.cylan.entity.jniCall.JFGMsgVideoDisconn;
 import com.cylan.entity.jniCall.JFGMsgVideoResolution;
 import com.cylan.entity.jniCall.JFGMsgVideoRtcp;
 import com.cylan.entity.jniCall.JFGVideo;
+import com.cylan.ex.JfgException;
 import com.cylan.jfgapp.interfases.CallBack;
 import com.cylan.jfgapp.jni.JfgAppCmd;
 import com.cylan.jfgappdemo.JfgEvent;
@@ -130,7 +131,11 @@ public class PlayFragment extends BaseFragment {
         videoAdapter = new ArrayAdapter<JFGVideo>(getContext(), android.R.layout.simple_list_item_1, videos);
         binding.lvHistoryList.setAdapter(videoAdapter);
         addLinstener();
-        JfgAppCmd.getInstance().getVideoList(device.uuid);
+        try {
+            JfgAppCmd.getInstance().getVideoList(device.uuid);
+        } catch (JfgException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -150,7 +155,11 @@ public class PlayFragment extends BaseFragment {
         SLog.i("isPlay ? " + playing);
         if (playing) {
             // stop play
-            stopPlay();
+            try {
+                stopPlay();
+            } catch (JfgException e) {
+                e.printStackTrace();
+            }
         }
         EventBus.getDefault().unregister(this);
     }
@@ -159,7 +168,11 @@ public class PlayFragment extends BaseFragment {
     public void onStop() {
         super.onStop();
         if (playing) {
-            stopPlay();
+            try {
+                stopPlay();
+            } catch (JfgException e) {
+                e.printStackTrace();
+            }
         }
         JfgAppCmd.getInstance().removeRenderRemoteView();
 
@@ -184,9 +197,17 @@ public class PlayFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 if (playing) {
-                    stopPlay();
+                    try {
+                        stopPlay();
+                    } catch (JfgException e) {
+                        e.printStackTrace();
+                    }
                 } else {
-                    playVideo();
+                    try {
+                        playVideo();
+                    } catch (JfgException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         });
@@ -267,7 +288,11 @@ public class PlayFragment extends BaseFragment {
                 }
                 curreHistoryTime = videos.get(position).beginTime;
                 if (isReady) {
-                    JfgAppCmd.getInstance().playHistoryVideo(device.uuid, curreHistoryTime);
+                    try {
+                        JfgAppCmd.getInstance().playHistoryVideo(device.uuid, curreHistoryTime);
+                    } catch (JfgException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         });
@@ -292,7 +317,7 @@ public class PlayFragment extends BaseFragment {
     /**
      * Play video.
      */
-    private void playVideo() {
+    private void playVideo() throws JfgException {
         // has network ?
         if (JfgNetUtils.getInstance(getContext()).getNetType() == -1) {
             showToast("phone is not netWork or client is offline!");
@@ -322,7 +347,7 @@ public class PlayFragment extends BaseFragment {
     /**
      * Stop play.
      */
-    private void stopPlay() {
+    private void stopPlay() throws JfgException {
         if (!playing) return;
         JfgAppCmd.getInstance().stopPlay(device.uuid);
         binding.vsStateView.setVisibility(View.VISIBLE);
@@ -424,7 +449,7 @@ public class PlayFragment extends BaseFragment {
      * @param msg the msg
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void OnVideoNotifyResolution(JFGMsgVideoResolution msg) {
+    public void OnVideoNotifyResolution(JFGMsgVideoResolution msg) throws JfgException {
         //render view
         SLog.i("setRenderRemoteView");
         binding.vsStateView.setVisibility(View.GONE);
@@ -473,7 +498,7 @@ public class PlayFragment extends BaseFragment {
      * @param state the state
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void OnLineStatus(JfgEvent.OnLineState state) {
+    public void OnLineStatus(JfgEvent.OnLineState state) throws JfgException {
         if (!state.online) {
             // off line
             showToast("phone is off line ");

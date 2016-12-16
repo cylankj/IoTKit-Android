@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.cylan.entity.JfgEnum;
 import com.cylan.entity.jniCall.JFGResult;
+import com.cylan.ex.JfgException;
 import com.cylan.jfgapp.jni.JfgAppCmd;
 import com.cylan.jfgappdemo.JfgEvent;
 import com.cylan.jfgappdemo.R;
@@ -121,7 +122,11 @@ public class RegisterFragment extends Fragment {
                     Toast.makeText(getContext(), "token is null!", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                JfgAppCmd.getInstance().verifySMS(account, code, token);
+                try {
+                    JfgAppCmd.getInstance().verifySMS(account, code, token);
+                } catch (JfgException e) {
+                    e.printStackTrace();
+                }
                 // use phone register
 
 
@@ -136,7 +141,7 @@ public class RegisterFragment extends Fragment {
      * @param result the result event
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onResult(JFGResult result) {
+    public void onResult(JFGResult result) throws JfgException {
         if (result.event == JfgEvent.ResultEvent.JFG_RESULT_REGISTER) {
             Toast.makeText(getContext(), "register result: " + result.code, Toast.LENGTH_SHORT).show();
             SLog.i("register result: " + result.code);

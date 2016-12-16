@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.pm.PackageManager;
 import android.os.Environment;
 
+import com.cylan.ex.JfgException;
 import com.cylan.jfgapp.jni.JfgAppCmd;
 import com.cylan.jfgappdemo.datamodel.BindDevBean;
 
@@ -58,6 +59,8 @@ public class JFGAppliction extends Application {
             // 初始化,Context , AppCallBack , log file path .日志文件的存放路径。
             JfgAppCmd.initJfgAppCmd(this, cb, file.getAbsolutePath());
         } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        } catch (JfgException e) {
             e.printStackTrace();
         }
         activityCallbacks = new ActivityCallbacks();

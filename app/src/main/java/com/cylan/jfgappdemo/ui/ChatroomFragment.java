@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.cylan.entity.jniCall.JFGDevice;
 import com.cylan.entity.jniCall.RobotMsg;
+import com.cylan.ex.JfgException;
 import com.cylan.jfgapp.jni.JfgAppCmd;
 import com.cylan.jfgappdemo.JfgEvent;
 import com.cylan.jfgappdemo.R;
@@ -74,12 +75,16 @@ public class ChatroomFragment extends BaseFragment {
         binding.btnCommintSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sendMessage();
+                try {
+                    sendMessage();
+                } catch (JfgException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
 
-    private void sendMessage() {
+    private void sendMessage() throws JfgException {
         byte[] bytes = new byte[256];
         if (binding.cbTestHex.isChecked()) {
             for (int i = 0; i < 256; i++) {

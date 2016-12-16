@@ -16,6 +16,7 @@ import com.cylan.entity.jniCall.JFGDevice;
 import com.cylan.entity.jniCall.JFGMsgVideoDisconn;
 import com.cylan.entity.jniCall.JFGMsgVideoResolution;
 import com.cylan.entity.jniCall.JFGMsgVideoRtcp;
+import com.cylan.ex.JfgException;
 import com.cylan.jfgapp.jni.JfgAppCmd;
 import com.cylan.jfgappdemo.JfgEvent;
 import com.cylan.jfgappdemo.R;
@@ -89,7 +90,7 @@ public class VRPlayActivity extends Activity {
     /**
      * Play video.
      */
-    private void playVideo() {
+    private void playVideo() throws JfgException {
         // has network ?
         if (JfgNetUtils.getInstance(this).getNetType() == -1) {
             showToast("phone is not netWork or client is offline!");
@@ -104,7 +105,7 @@ public class VRPlayActivity extends Activity {
     /**
      * Stop play.
      */
-    private void stopPlay() {
+    private void stopPlay() throws JfgException {
         JfgAppCmd.getInstance().stopPlay(device.uuid);
         binding.pbLoading.setVisibility(View.GONE);
         SLog.i("stop play!");
@@ -124,7 +125,11 @@ public class VRPlayActivity extends Activity {
         super.onStop();
         EventBus.getDefault().unregister(this);
         if (isPlaying) {
-            stopPlay();
+            try {
+                stopPlay();
+            } catch (JfgException e) {
+                e.printStackTrace();
+            }
         }
         JfgAppCmd.getInstance().removeRenderRemoteView();
     }
@@ -134,9 +139,17 @@ public class VRPlayActivity extends Activity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    playVideo();
+                    try {
+                        playVideo();
+                    } catch (JfgException e) {
+                        e.printStackTrace();
+                    }
                 } else {
-                    stopPlay();
+                    try {
+                        stopPlay();
+                    } catch (JfgException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         });
@@ -186,7 +199,7 @@ public class VRPlayActivity extends Activity {
      * @param msg the msg
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void OnVideoDisconnect(JFGMsgVideoDisconn msg) {
+    public void OnVideoDisconnect(JFGMsgVideoDisconn msg) throws JfgException {
         //show play view
         binding.tvBitRate.setVisibility(View.GONE);
         SLog.i(msg.remote + " errCode:" + msg.code);
@@ -201,7 +214,7 @@ public class VRPlayActivity extends Activity {
      * @param msg the msg
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void OnVideoNotifyResolution(JFGMsgVideoResolution msg) {
+    public void OnVideoNotifyResolution(JFGMsgVideoResolution msg) throws JfgException {
         //render view
         SLog.i("setRenderRemoteView");
         binding.pbLoading.setVisibility(View.GONE);
@@ -230,7 +243,7 @@ public class VRPlayActivity extends Activity {
      * @param state the state
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void OnLineStatus(JfgEvent.OnLineState state) {
+    public void OnLineStatus(JfgEvent.OnLineState state) throws JfgException {
         if (!state.online) {
             // off line
             showToast("phone is off line ");
