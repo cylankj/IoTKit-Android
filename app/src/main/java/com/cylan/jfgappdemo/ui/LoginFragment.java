@@ -7,12 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
-
-import com.cylan.constants.JfgConstants;
-import com.cylan.entity.JfgEnum;
-import com.cylan.entity.jniCall.JFGResult;
-import com.cylan.ex.JfgException;
-import com.cylan.jfgapp.jni.JfgAppCmd;
 import com.cylan.jfgappdemo.JfgEvent;
 import com.cylan.jfgappdemo.R;
 import com.cylan.jfgappdemo.databinding.FragmentLoginBinding;
@@ -21,7 +15,11 @@ import com.superlog.SLog;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-
+import com.cylan.constants.JfgConstants;
+import com.cylan.entity.JfgEnum;
+import com.cylan.entity.jniCall.JFGResult;
+import com.cylan.ex.JfgException;
+import com.cylan.jfgapp.jni.JfgAppCmd;
 
 /**
  * 此页面负责登陆。
@@ -84,6 +82,7 @@ public class LoginFragment extends BaseFragment {
                 Toast.makeText(getContext(), "login: " + userName, Toast.LENGTH_SHORT).show();
                 SLog.i("name:%s,pwd:%s", userName, pwd);
                 try {
+
                     JfgAppCmd.getInstance().login(userName, pwd);
                     /**
                      * JfgAppCmd.getInstance().openLogin("open_ID", "token"); // 弃用该接口。
@@ -93,6 +92,8 @@ public class LoginFragment extends BaseFragment {
                 } catch (JfgException e) {
                     e.printStackTrace();
                 }
+
+
             }
         });
         binding.tvRegister.setOnClickListener(new View.OnClickListener() {

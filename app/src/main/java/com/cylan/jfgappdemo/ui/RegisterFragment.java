@@ -141,7 +141,7 @@ public class RegisterFragment extends Fragment {
      * @param result the result event
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onResult(JFGResult result) {
+    public void onResult(JFGResult result) throws JfgException {
         if (result.event == JfgEvent.ResultEvent.JFG_RESULT_REGISTER) {
             Toast.makeText(getContext(), "register result: " + result.code, Toast.LENGTH_SHORT).show();
             SLog.i("register result: " + result.code);

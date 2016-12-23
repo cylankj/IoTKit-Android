@@ -90,7 +90,7 @@ public class VRPlayActivity extends Activity {
     /**
      * Play video.
      */
-    private void playVideo() {
+    private void playVideo() throws JfgException {
         // has network ?
         if (JfgNetUtils.getInstance(this).getNetType() == -1) {
             showToast("phone is not netWork or client is offline!");
@@ -142,10 +142,14 @@ public class VRPlayActivity extends Activity {
         binding.tbPlay.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    playVideo();
-                } else {
-                    stopPlay();
+                try {
+                    if (isChecked) {
+                        playVideo();
+                    } else {
+                        stopPlay();
+                    }
+                } catch (JfgException e) {
+                    e.printStackTrace();
                 }
             }
         });
@@ -195,7 +199,7 @@ public class VRPlayActivity extends Activity {
      * @param msg the msg
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void OnVideoDisconnect(JFGMsgVideoDisconn msg) {
+    public void OnVideoDisconnect(JFGMsgVideoDisconn msg) throws JfgException {
         //show play view
         binding.tvBitRate.setVisibility(View.GONE);
         SLog.i(msg.remote + " errCode:" + msg.code);
@@ -210,7 +214,7 @@ public class VRPlayActivity extends Activity {
      * @param msg the msg
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void OnVideoNotifyResolution(JFGMsgVideoResolution msg) {
+    public void OnVideoNotifyResolution(JFGMsgVideoResolution msg) throws JfgException {
         //render view
         SLog.i("setRenderRemoteView");
         binding.pbLoading.setVisibility(View.GONE);
@@ -243,7 +247,7 @@ public class VRPlayActivity extends Activity {
      * @param state the state
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void OnLineStatus(JfgEvent.OnLineState state) {
+    public void OnLineStatus(JfgEvent.OnLineState state) throws JfgException {
         if (!state.online) {
             // off line
             showToast("phone is off line ");

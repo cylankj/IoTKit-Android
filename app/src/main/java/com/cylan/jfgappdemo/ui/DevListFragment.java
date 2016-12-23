@@ -170,7 +170,7 @@ public class DevListFragment extends BaseFragment {
      * @param devs the devs
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onUpdateDevs(JFGDevice[] devs) {
+    public void onUpdateDevs(JFGDevice[] devs) throws JfgException {
         if (!isResumed()) return;
         SLog.i("update devs");
         adapter.setDevice(devs);
@@ -186,7 +186,7 @@ public class DevListFragment extends BaseFragment {
      *
      * @param peer the peer
      */
-    private void getDataPoint(String peer) {
+    private void getDataPoint(String peer) throws JfgException {
         ArrayList<JFGDPMsg> dp = new ArrayList<>();
         dp.add(new JFGDPMsg(201, 0));// query dev network
         dp.add(new JFGDPMsg(206, 0));// query dev battery
@@ -243,7 +243,7 @@ public class DevListFragment extends BaseFragment {
      * @param result the result event
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onResult(JFGResult result) {
+    public void onResult(JFGResult result) throws JfgException {
         switch (result.event) {
             case JfgEvent.ResultEvent.JFG_RESULT_LOGIN:
                 if (result.code == JfgConstants.RESULT_OK
@@ -308,7 +308,7 @@ public class DevListFragment extends BaseFragment {
 //        }
     }
 
-    private void sendBindDeviceMsg() {
+    private void sendBindDeviceMsg() throws JfgException {
         // send bind msg
         BindDevBean bean = JFGAppliction.bindBean;
         SLog.w("bean.BindCode:" + bean.bindCode);
