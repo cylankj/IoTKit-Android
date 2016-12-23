@@ -9,7 +9,9 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.cylan.constants.JfgConstants;
+import com.cylan.entity.JfgEnum;
 import com.cylan.entity.jniCall.JFGResult;
+import com.cylan.ex.JfgException;
 import com.cylan.jfgapp.jni.JfgAppCmd;
 import com.cylan.jfgappdemo.JfgEvent;
 import com.cylan.jfgappdemo.R;
@@ -81,8 +83,16 @@ public class LoginFragment extends BaseFragment {
                 String userName = binding.etUserName.getText().toString().trim();
                 Toast.makeText(getContext(), "login: " + userName, Toast.LENGTH_SHORT).show();
                 SLog.i("name:%s,pwd:%s", userName, pwd);
-                JfgAppCmd.getInstance().login(userName, pwd);
-//              JfgAppCmd.getInstance().openLogin("open_ID", "token");
+                try {
+                    JfgAppCmd.getInstance().login(userName, pwd);
+                    /**
+                     * JfgAppCmd.getInstance().openLogin("open_ID", "token"); // 弃用该接口。
+                     */
+                    // loginType 为JfgEnum.LOGIN_TYPE.ROBOT 就是萝卜头用户自定义的账号
+                    //JfgAppCmd.getInstance().openLogin("open_ID", "token", JfgEnum.LOGIN_TYPE.ROBOT);
+                } catch (JfgException e) {
+                    e.printStackTrace();
+                }
             }
         });
         binding.tvRegister.setOnClickListener(new View.OnClickListener() {

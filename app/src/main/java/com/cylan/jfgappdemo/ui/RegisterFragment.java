@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.cylan.entity.JfgEnum;
 import com.cylan.entity.jniCall.JFGResult;
+import com.cylan.ex.JfgException;
 import com.cylan.jfgapp.jni.JfgAppCmd;
 import com.cylan.jfgappdemo.JfgEvent;
 import com.cylan.jfgappdemo.R;
@@ -121,7 +122,11 @@ public class RegisterFragment extends Fragment {
                     Toast.makeText(getContext(), "token is null!", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                JfgAppCmd.getInstance().verifySMS(account, code, token);
+                try {
+                    JfgAppCmd.getInstance().verifySMS(account, code, token);
+                } catch (JfgException e) {
+                    e.printStackTrace();
+                }
                 // use phone register
 
 
@@ -149,8 +154,12 @@ public class RegisterFragment extends Fragment {
         } else if (result.event == JfgEvent.ResultEvent.JFG_RESULT_VERIFY_SMS) {
             Toast.makeText(getContext(), "get sms result: " + result.code, Toast.LENGTH_SHORT).show();
             SLog.i("verify sms code result : " + result.code);
-            JfgAppCmd.getInstance().
-                    register(account, pwd, JfgEvent.REGISTER_TYPE_PHONE, token);
+            try {
+                JfgAppCmd.getInstance().
+                        register(account, pwd, JfgEvent.REGISTER_TYPE_PHONE, token);
+            } catch (JfgException e) {
+                e.printStackTrace();
+            }
 
             // use mail register
 //  JfgAppCmd.getInstance().register("cleverdog@cylan.com.cn", "88888888", JfgEvent.REGISTER_TYPE_MAIL, "");

@@ -18,6 +18,7 @@ import com.cylan.entity.jniCall.JFGDPMsg;
 import com.cylan.entity.jniCall.JFGDevice;
 import com.cylan.entity.jniCall.JFGResult;
 import com.cylan.entity.jniCall.RobotoGetDataRsp;
+import com.cylan.ex.JfgException;
 import com.cylan.jfgapp.jni.JfgAppCmd;
 import com.cylan.jfgappdemo.JfgEvent;
 import com.cylan.jfgappdemo.R;
@@ -68,7 +69,11 @@ public class SettingsFragment extends BaseFragment {
         JFGDPMsg motion = new JFGDPMsg(303, 0);
         dp.add(type);
         dp.add(motion);
-        long seq = JfgAppCmd.getInstance().robotGetData(device.uuid, dp, 1, false, 0);
+        try {
+            long seq = JfgAppCmd.getInstance().robotGetData(device.uuid, dp, 1, false, 0);
+        } catch (JfgException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -97,7 +102,12 @@ public class SettingsFragment extends BaseFragment {
                     e.printStackTrace();
                 }
                 list.add(msg);
-                long seq = JfgAppCmd.getInstance().robotSetData(device.uuid, list);
+                long seq = 0;
+                try {
+                    seq = JfgAppCmd.getInstance().robotSetData(device.uuid, list);
+                } catch (JfgException e) {
+                    e.printStackTrace();
+                }
                 SLog.i("seq: " + seq);
             }
         });
@@ -112,7 +122,12 @@ public class SettingsFragment extends BaseFragment {
                     e.printStackTrace();
                 }
                 list.add(msg);
-                long seq = JfgAppCmd.getInstance().robotSetData(device.uuid, list);
+                long seq = 0;
+                try {
+                    seq = JfgAppCmd.getInstance().robotSetData(device.uuid, list);
+                } catch (JfgException e) {
+                    e.printStackTrace();
+                }
                 SLog.i("seq: " + seq);
             }
         });
@@ -125,7 +140,11 @@ public class SettingsFragment extends BaseFragment {
                             .setNegativeButton("NO", null).setPositiveButton("YES", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            JfgAppCmd.getInstance().unBindDevice(device.uuid);
+                            try {
+                                JfgAppCmd.getInstance().unBindDevice(device.uuid);
+                            } catch (JfgException e) {
+                                e.printStackTrace();
+                            }
                         }
                     }).create().show();
                 }

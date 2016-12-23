@@ -22,6 +22,7 @@ import com.cylan.entity.jniCall.JFGDoorBellCaller;
 import com.cylan.entity.jniCall.JFGMsgHttpResult;
 import com.cylan.entity.jniCall.JFGResult;
 import com.cylan.entity.jniCall.RobotoGetDataRsp;
+import com.cylan.ex.JfgException;
 import com.cylan.jfgapp.jni.JfgAppCmd;
 import com.cylan.jfgappdemo.JFGAppliction;
 import com.cylan.jfgappdemo.JfgEvent;
@@ -189,7 +190,12 @@ public class DevListFragment extends BaseFragment {
         ArrayList<JFGDPMsg> dp = new ArrayList<>();
         dp.add(new JFGDPMsg(201, 0));// query dev network
         dp.add(new JFGDPMsg(206, 0));// query dev battery
-        long seq = JfgAppCmd.getInstance().robotGetData(peer, dp, 1, false, 0);
+        long seq = 0;
+        try {
+            seq = JfgAppCmd.getInstance().robotGetData(peer, dp, 1, false, 0);
+        } catch (JfgException e) {
+            e.printStackTrace();
+        }
         SLog.i(peer + " seq:" + seq);
     }
 
@@ -248,6 +254,7 @@ public class DevListFragment extends BaseFragment {
             case JfgEvent.ResultEvent.JFG_RESULT_BINDDEV:
                 SLog.i("bind dev resutl: " + result.code);
                 Toast.makeText(getContext(), "bind dev result:" + result.code, Toast.LENGTH_SHORT).show();
+                // 发送时区。
                 break;
             case JfgEvent.ResultEvent.JFG_RESULT_UNBINDDEV:
                 SLog.i("unbind dev resutl: " + result.code);
@@ -305,16 +312,11 @@ public class DevListFragment extends BaseFragment {
         // send bind msg
         BindDevBean bean = JFGAppliction.bindBean;
         SLog.w("bean.BindCode:" + bean.bindCode);
-        JfgAppCmd.getInstance().bindDevice(bean.cid, bean.bindCode); // send bind msg
-        // send timezone datapoint
-        ArrayList<JFGDPMsg> dps = new ArrayList<>();
-        JFGDPMsg msg = new JFGDPMsg(214, System.currentTimeMillis());
-        StringAndInt pack = new StringAndInt();
-        pack.intValue = TimeZone.getDefault().getRawOffset() / 1000;  // 单位为 秒 。
-        pack.strValue = TimeZone.getDefault().getID();  // 时区，如： shanghai
-        msg.packValue = pack.toBytes();
-        dps.add(msg);
-        JfgAppCmd.getInstance().robotSetData(bean.cid, dps);
+        try {
+            JfgAppCmd.getInstance().bindDevice(bean.cid, bean.bindCode); // send bind msg
+        } catch (JfgException e) {
+            e.printStackTrace();
+        }
         JFGAppliction.bindBean = null;
         JFGAppliction.bindModel = false;
         EventBus.getDefault().post(new AddDevFragment.ExitFragmentEvent());
@@ -326,12 +328,4 @@ public class DevListFragment extends BaseFragment {
         SLog.i(ja.getAccount() + ", photo url :" + ja.getPhotoUrl());
     }
 
-    private void test() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-
-            }
-        }).start();
-    }
 }

@@ -23,6 +23,7 @@ import com.cylan.entity.jniCall.JFGMsgVideoDisconn;
 import com.cylan.entity.jniCall.JFGMsgVideoResolution;
 import com.cylan.entity.jniCall.JFGMsgVideoRtcp;
 import com.cylan.entity.jniCall.JFGVideo;
+import com.cylan.ex.JfgException;
 import com.cylan.jfgapp.interfases.CallBack;
 import com.cylan.jfgapp.jni.JfgAppCmd;
 import com.cylan.jfgappdemo.JfgEvent;
@@ -130,7 +131,11 @@ public class PlayFragment extends BaseFragment {
         videoAdapter = new ArrayAdapter<JFGVideo>(getContext(), android.R.layout.simple_list_item_1, videos);
         binding.lvHistoryList.setAdapter(videoAdapter);
         addLinstener();
-        JfgAppCmd.getInstance().getVideoList(device.uuid);
+        try {
+            JfgAppCmd.getInstance().getVideoList(device.uuid);
+        } catch (JfgException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -267,7 +272,11 @@ public class PlayFragment extends BaseFragment {
                 }
                 curreHistoryTime = videos.get(position).beginTime;
                 if (isReady) {
-                    JfgAppCmd.getInstance().playHistoryVideo(device.uuid, curreHistoryTime);
+                    try {
+                        JfgAppCmd.getInstance().playHistoryVideo(device.uuid, curreHistoryTime);
+                    } catch (JfgException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         });
@@ -305,10 +314,18 @@ public class PlayFragment extends BaseFragment {
 //        }
         if (playing) return;
         if (realTime) {
-            JfgAppCmd.getInstance().playVideo(device.uuid);
+            try {
+                JfgAppCmd.getInstance().playVideo(device.uuid);
+            } catch (JfgException e) {
+                e.printStackTrace();
+            }
         } else {
             if (curreHistoryTime == 0) curreHistoryTime = videos.get(0).beginTime;
-            JfgAppCmd.getInstance().playHistoryVideo(device.uuid, curreHistoryTime);
+            try {
+                JfgAppCmd.getInstance().playHistoryVideo(device.uuid, curreHistoryTime);
+            } catch (JfgException e) {
+                e.printStackTrace();
+            }
         }
         // do time out;
         binding.vsStateView.setVisibility(View.VISIBLE);
@@ -324,7 +341,11 @@ public class PlayFragment extends BaseFragment {
      */
     private void stopPlay() {
         if (!playing) return;
-        JfgAppCmd.getInstance().stopPlay(device.uuid);
+        try {
+            JfgAppCmd.getInstance().stopPlay(device.uuid);
+        } catch (JfgException e) {
+            e.printStackTrace();
+        }
         binding.vsStateView.setVisibility(View.VISIBLE);
         binding.vsStateView.setDisplayedChild(0);
         binding.ivPlay.setImageResource(R.drawable.btn_play);
@@ -429,13 +450,21 @@ public class PlayFragment extends BaseFragment {
         SLog.i("setRenderRemoteView");
         binding.vsStateView.setVisibility(View.GONE);
         binding.tvBitRate.setVisibility(View.VISIBLE);
-        JfgAppCmd.getInstance().setRenderRemoteView(videoView);
+        try {
+            JfgAppCmd.getInstance().setRenderRemoteView(videoView);
+        } catch (JfgException e) {
+            e.printStackTrace();
+        }
         enableMic = false; // default state
         enableVoice = false;// default state
         JfgAppCmd.getInstance().setAudio(false, true, true); // enable remote device mic and voice
         if (!realTime) {
             isReady = true;
-            JfgAppCmd.getInstance().playHistoryVideo(device.uuid, curreHistoryTime);
+            try {
+                JfgAppCmd.getInstance().playHistoryVideo(device.uuid, curreHistoryTime);
+            } catch (JfgException e) {
+                e.printStackTrace();
+            }
         }
     }
 

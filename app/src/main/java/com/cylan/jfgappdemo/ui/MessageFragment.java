@@ -15,6 +15,7 @@ import com.cylan.entity.JfgEnum;
 import com.cylan.entity.jniCall.JFGDPMsg;
 import com.cylan.entity.jniCall.JFGDevice;
 import com.cylan.entity.jniCall.RobotoGetDataRsp;
+import com.cylan.ex.JfgException;
 import com.cylan.jfgapp.jni.JfgAppCmd;
 import com.cylan.jfgappdemo.JfgEvent;
 import com.cylan.jfgappdemo.R;
@@ -89,7 +90,11 @@ public class MessageFragment extends BaseFragment {
     private void getMessage(long version, boolean ase) {
         ArrayList<JFGDPMsg> dps = new ArrayList<>();
         dps.add(new JFGDPMsg(505, version)); // 获取某一个时间点的报警图片
-        JfgAppCmd.getInstance().robotGetData(device.uuid, dps, 10, ase, 0);
+        try {
+            JfgAppCmd.getInstance().robotGetData(device.uuid, dps, 10, ase, 0);
+        } catch (JfgException e) {
+            e.printStackTrace();
+        }
         SLog.i("getMessage: " + version);
     }
 
@@ -116,7 +121,12 @@ public class MessageFragment extends BaseFragment {
             if ((info.files >> i & 0x1) == 1) {
                 String file = info.time + "_" + (i + 1) + ".jpg";
                 // 获取报警图片URL
-                String url = JfgAppCmd.getInstance().getCloudUrlByType(JfgEnum.JFG_URL.WARNING,info.type,file,identity);
+                String url = null;
+                try {
+                    url = JfgAppCmd.getInstance().getCloudUrlByType(JfgEnum.JFG_URL.WARNING,info.type,file,identity);
+                } catch (JfgException e) {
+                    e.printStackTrace();
+                }
 //                SLog.i(url);
                 urls.add(url);  // add url ;
             }

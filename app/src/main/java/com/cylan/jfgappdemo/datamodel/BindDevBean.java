@@ -11,7 +11,7 @@ public class BindDevBean implements Serializable {
      */
     public String ssid = "";
     /**
-     * The Cid.
+     * The sn.
      */
     public String cid = "";
     /**

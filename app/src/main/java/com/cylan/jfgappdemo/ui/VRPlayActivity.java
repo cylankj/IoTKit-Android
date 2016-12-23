@@ -16,6 +16,7 @@ import com.cylan.entity.jniCall.JFGDevice;
 import com.cylan.entity.jniCall.JFGMsgVideoDisconn;
 import com.cylan.entity.jniCall.JFGMsgVideoResolution;
 import com.cylan.entity.jniCall.JFGMsgVideoRtcp;
+import com.cylan.ex.JfgException;
 import com.cylan.jfgapp.jni.JfgAppCmd;
 import com.cylan.jfgappdemo.JfgEvent;
 import com.cylan.jfgappdemo.R;
@@ -95,7 +96,11 @@ public class VRPlayActivity extends Activity {
             showToast("phone is not netWork or client is offline!");
             return;
         }
-        JfgAppCmd.getInstance().playVideo(device.uuid);
+        try {
+            JfgAppCmd.getInstance().playVideo(device.uuid);
+        } catch (JfgException e) {
+            e.printStackTrace();
+        }
         // do time out;
         binding.pbLoading.setVisibility(View.VISIBLE);
         SLog.w("play video : " + device.uuid);
@@ -105,7 +110,11 @@ public class VRPlayActivity extends Activity {
      * Stop play.
      */
     private void stopPlay() {
-        JfgAppCmd.getInstance().stopPlay(device.uuid);
+        try {
+            JfgAppCmd.getInstance().stopPlay(device.uuid);
+        } catch (JfgException e) {
+            e.printStackTrace();
+        }
         binding.pbLoading.setVisibility(View.GONE);
         SLog.i("stop play!");
         isPlaying = false;
@@ -206,7 +215,11 @@ public class VRPlayActivity extends Activity {
         SLog.i("setRenderRemoteView");
         binding.pbLoading.setVisibility(View.GONE);
         binding.tvBitRate.setVisibility(View.VISIBLE);
-        JfgAppCmd.getInstance().setRenderRemoteView(panoramicView);
+        try {
+            JfgAppCmd.getInstance().setRenderRemoteView(panoramicView);
+        } catch (JfgException e) {
+            e.printStackTrace();
+        }
         JfgAppCmd.getInstance().setAudio(false, true, true); // enable remote device mic and voice
         isPlaying = true;
     }

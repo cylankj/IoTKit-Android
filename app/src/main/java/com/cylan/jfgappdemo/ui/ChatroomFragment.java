@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.cylan.entity.jniCall.JFGDevice;
 import com.cylan.entity.jniCall.RobotMsg;
+import com.cylan.ex.JfgException;
 import com.cylan.jfgapp.jni.JfgAppCmd;
 import com.cylan.jfgappdemo.JfgEvent;
 import com.cylan.jfgappdemo.R;
@@ -93,7 +94,11 @@ public class ChatroomFragment extends BaseFragment {
         ArrayList<String> list = new ArrayList<>();
         list.add(device.uuid);
         RobotMsg robotMsg = new RobotMsg(list, sn, binding.cbIsack.isChecked(), bytes);
-        JfgAppCmd.getInstance().robotTransmitMsg(robotMsg);
+        try {
+            JfgAppCmd.getInstance().robotTransmitMsg(robotMsg);
+        } catch (JfgException e) {
+            e.printStackTrace();
+        }
         sn++;
         sb.append("send: ").append(new String(robotMsg.bytes)).append("\n");
         binding.tvEchoMsg.setText(sb.toString());
