@@ -45,91 +45,44 @@ public class JfgEvent {
      * The type Result event.
      */
     public static class ResultEvent {
-        /**
-         * The constant JFG_RESULT_VERIFY_SMS.
-         */
+
+        /// 短信校验码结果
         public static final int JFG_RESULT_VERIFY_SMS = 0;
-        /**
-         * The constant JFG_RESULT_REGISTER.
-         */
+        /// 注册结果
         public static final int JFG_RESULT_REGISTER = 1;
-        /**
-         * The constant JFG_RESULT_LOGIN.
-         */
+        /// 登陆结果
         public static final int JFG_RESULT_LOGIN = 2;
-        /**
-         * The constant JFG_RESULT_BINDDEV.
-         */
+        /// 绑定设备结果
         public static final int JFG_RESULT_BINDDEV = 3;
-
-        /**
-         * The constant JFG_RESULT_UNBINDDEV.
-         */
+        /// 解除绑定结果
         public static final int JFG_RESULT_UNBINDDEV = 4;
-
-
-        /**
-         * The constant JFG_RESULT_UPDATE_ACCOUNT.
-         */
+        /// 更新账号操作结果
         public static final int JFG_RESULT_UPDATE_ACCOUNT = 5;
+        /// 重置密码结果
+        public static final int JFG_RESULT_RESET_PASS = 6;
+        /// 更改密码。
+        public static final int JFG_RESULT_CHANGE_PASS = 7;
+        /// 添加好友的结果
+        public static final int JFG_RESULT_ADD_FRIEND = 8;
+        /// 删除好友的结果
+        public static final int JFG_RESULT_DEL_FRIEND = 9;
+        /// 同意添加好友的结果
+        public static final int JFG_RESULT_CONSENT_ADD_FRIEND =10;
+        /// 设置好友备注名
+        public static final int JFG_RESULT_SET_FRIEND_MARKNAME = 11;
+        /// 分享设备
+        public static final int JFG_RESULT_SHARE_DEVICE = 12;
+        /// 取消分享
+        public static final int JFG_RESULT_UNSHARE_DEVICE = 13;
+        /// 设置别名
+        public static final int JFG_RESULT_SET_DEVICE_ALIAS = 14;
+        /// 发送反馈的结果
+        public static final int JFG_RESULT_SEND_FEEDBACK = 15;
+        /// 设置DeviceToken的返回结果
+        public static final int JFG_RESULT_SET_DEVICE_TOKEN = 16;
+        /// 第三方绑定账号时设置密码的回复
+        public static final int JFG_RESULT_SETPWD_WITH_BINDACCOUNT = 17;
 
-        /**
-         * 删除好友的结果
-         */
-        public static final int JFG_RESULT_DEL_FRIEND = 6;
-        /**
-         * 同意添加好友的结果
-         */
-        public static final int JFG_RESULT_CONSENT_ADD_FRIEND = 7;
-
-        /**
-         * 设置好友备注名
-         */
-        public static final int JFG_RESULT_SET_FRIEND_MARKNAME = 8;
-
-        /**
-         * 分享设备
-         */
-        public static final int JFG_RESULT_SHARE_DEVICE = 9;
-        /**
-         * 取消分享
-         */
-        public static final int JFG_RESULT_UNSHARE_DEVICE = 10;
-        /**
-         * 设置别名
-         */
-        public static final int JFG_RESULT_SET_DEVICE_ALIAS = 11;
-        /**
-         * 发送反馈的结果
-         */
-        public static final int JFG_RESULT_SEND_FEEDBACK = 12;
-        /**
-         * 设置DeviceToken的返回结果
-         */
-        public static final int JFG_RESULT_SET_DEVICE_TOKEN = 13;
-
-
-        //------------------------------------------------------------------------
-
-//        /**
-//         * The Code.
-//         */
-//        public int code;
-//        /**
-//         * The Event.
-//         */
-//        public int event;
-
-//        /**
-//         * Instantiates a new Result event.
-//         *
-//         * @param event the event
-//         * @param code  the code
-//         */
-//        public ResultEvent(int event, int code) {
-//            this.code = code;
-//            this.event = event;
-//        }
     }
 
 

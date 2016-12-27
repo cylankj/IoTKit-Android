@@ -1,6 +1,7 @@
 package com.cylan.jfgappdemo;
 
 import android.app.Application;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Environment;
 
@@ -45,22 +46,30 @@ public class JFGAppliction extends Application {
      */
     public static String account;
 
+    private Context ctx;
+
     @Override
     public void onCreate() {
         super.onCreate();
         cb = new AppDemoCallBack();
         File dir = Environment.getExternalStorageDirectory();
-        File file = new File(dir, "/JfgAppDemo");
+        final File file = new File(dir, "/JfgAppDemo");
         if (!file.exists()) {
             file.mkdir();
         }
-
-        try {
-            // 初始化,Context , AppCallBack , log file path .日志文件的存放路径。
-            JfgAppCmd.initJfgAppCmd(this, cb, file.getAbsolutePath());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        ctx = this;
+        // 不再放在主线程中调用。
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    // 初始化,Context , AppCallBack , log file path .日志文件的存放路径。
+                    JfgAppCmd.initJfgAppCmd(ctx, cb, file.getAbsolutePath());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
         activityCallbacks = new ActivityCallbacks();
         registerActivityLifecycleCallbacks(activityCallbacks);
     }

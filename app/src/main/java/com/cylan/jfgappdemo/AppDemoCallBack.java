@@ -261,4 +261,9 @@ public class AppDemoCallBack implements AppCallBack {
     public void OnCheckDevVersionRsp(boolean hasNew, String url, String version, String tip, String md5) {
         SLog.d("");
     }
+
+    @Override
+    public void OnNotifyStorageType(int type) {
+        SLog.i("storage type: " + type);
+    }
 }
