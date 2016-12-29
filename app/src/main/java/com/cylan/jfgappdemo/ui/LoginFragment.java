@@ -8,7 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.cylan.jfgappdemo.JfgEvent;
+import com.cylan.entity.JfgEnum;
+import com.cylan.entity.JfgEvent;
 import com.cylan.jfgappdemo.R;
 import com.cylan.jfgappdemo.databinding.FragmentLoginBinding;
 import com.superlog.SLog;
@@ -18,7 +19,6 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import com.cylan.constants.JfgConstants;
-import com.cylan.entity.JfgEnum;
 import com.cylan.entity.jniCall.JFGResult;
 import com.cylan.ex.JfgException;
 import com.cylan.jfgapp.jni.JfgAppCmd;
@@ -84,7 +84,7 @@ public class LoginFragment extends BaseFragment {
                 Toast.makeText(getContext(), "login: " + userName, Toast.LENGTH_SHORT).show();
                 SLog.i("name:%s,pwd:%s", userName, pwd);
                 try {
-                    JfgAppCmd.getInstance().login(userName, pwd);
+                    SLog.i("login ret:" + JfgAppCmd.getInstance().login(userName, pwd));
 //                     loginType 为JfgEnum.LOGIN_TYPE.ROBOT 就是萝卜头用户自定义的账号
 //                    JfgAppCmd.getInstance().openLogin("Tj6R8cE0RDXJN1yO+jA9ug==", "WGo77YkwRj6sLTNwDQLjiA", JfgEnum.LOGIN_TYPE.ROBOT);
                 } catch (JfgException e) {

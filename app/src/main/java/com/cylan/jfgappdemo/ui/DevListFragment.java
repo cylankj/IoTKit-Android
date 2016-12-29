@@ -3,10 +3,8 @@ package com.cylan.jfgappdemo.ui;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.util.TimeUtils;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,14 +23,12 @@ import com.cylan.entity.jniCall.RobotoGetDataRsp;
 import com.cylan.ex.JfgException;
 import com.cylan.jfgapp.jni.JfgAppCmd;
 import com.cylan.jfgappdemo.JFGAppliction;
-import com.cylan.jfgappdemo.JfgEvent;
+import com.cylan.entity.JfgEvent;
 import com.cylan.jfgappdemo.R;
 import com.cylan.jfgappdemo.adapter.DevsAdapter;
 import com.cylan.jfgappdemo.databinding.FragmentDevListBinding;
 import com.cylan.jfgappdemo.datamodel.BindDevBean;
 import com.cylan.jfgappdemo.datamodel.IntAndString;
-import com.cylan.jfgappdemo.datamodel.StringAndInt;
-import com.cylan.udpMsgPack.JfgUdpMsg;
 import com.cylan.utils.JfgMsgPackUtils;
 import com.superlog.SLog;
 
@@ -41,11 +37,8 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Map;
-import java.util.TimeZone;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Created by lxh on 16-7-23.

@@ -16,7 +16,7 @@ import com.cylan.entity.JfgEnum;
 import com.cylan.entity.jniCall.JFGResult;
 import com.cylan.ex.JfgException;
 import com.cylan.jfgapp.jni.JfgAppCmd;
-import com.cylan.jfgappdemo.JfgEvent;
+import com.cylan.entity.JfgEvent;
 import com.cylan.jfgappdemo.R;
 import com.cylan.jfgappdemo.databinding.FragmentRegisterBinding;
 import com.superlog.SLog;

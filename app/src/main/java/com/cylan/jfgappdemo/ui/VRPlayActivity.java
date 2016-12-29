@@ -18,7 +18,7 @@ import com.cylan.entity.jniCall.JFGMsgVideoResolution;
 import com.cylan.entity.jniCall.JFGMsgVideoRtcp;
 import com.cylan.ex.JfgException;
 import com.cylan.jfgapp.jni.JfgAppCmd;
-import com.cylan.jfgappdemo.JfgEvent;
+import com.cylan.entity.JfgEvent;
 import com.cylan.jfgappdemo.R;
 import com.cylan.jfgappdemo.databinding.ActivityVrPlayBinding;
 import com.cylan.panorama.CameraParam;

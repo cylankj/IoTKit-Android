@@ -13,17 +13,15 @@ import com.cylan.entity.jniCall.JFGDevice;
 import com.cylan.entity.jniCall.RobotMsg;
 import com.cylan.ex.JfgException;
 import com.cylan.jfgapp.jni.JfgAppCmd;
-import com.cylan.jfgappdemo.JfgEvent;
+import com.cylan.entity.JfgEvent;
 import com.cylan.jfgappdemo.R;
 import com.cylan.jfgappdemo.databinding.FragmentChatroomBinding;
-import com.cylan.jfgappdemo.datamodel.StringAndInt;
 import com.superlog.SLog;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 
 /**

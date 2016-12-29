@@ -26,7 +26,7 @@ import com.cylan.entity.jniCall.JFGVideo;
 import com.cylan.ex.JfgException;
 import com.cylan.jfgapp.interfases.CallBack;
 import com.cylan.jfgapp.jni.JfgAppCmd;
-import com.cylan.jfgappdemo.JfgEvent;
+import com.cylan.entity.JfgEvent;
 import com.cylan.jfgappdemo.R;
 import com.cylan.jfgappdemo.databinding.FragmentPlayBinding;
 import com.cylan.utils.JfgNetUtils;

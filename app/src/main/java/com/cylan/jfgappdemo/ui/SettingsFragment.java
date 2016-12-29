@@ -20,7 +20,7 @@ import com.cylan.entity.jniCall.JFGResult;
 import com.cylan.entity.jniCall.RobotoGetDataRsp;
 import com.cylan.ex.JfgException;
 import com.cylan.jfgapp.jni.JfgAppCmd;
-import com.cylan.jfgappdemo.JfgEvent;
+import com.cylan.entity.JfgEvent;
 import com.cylan.jfgappdemo.R;
 import com.cylan.jfgappdemo.databinding.FragmentSettingsBinding;
 import com.cylan.utils.JfgMsgPackUtils;
@@ -29,7 +29,6 @@ import com.superlog.SLog;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-import org.msgpack.MessagePack;
 
 import java.io.IOException;
 import java.util.ArrayList;
