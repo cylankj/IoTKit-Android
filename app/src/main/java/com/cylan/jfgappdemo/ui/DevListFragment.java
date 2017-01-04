@@ -126,6 +126,7 @@ public class DevListFragment extends BaseFragment {
     public void onResume() {
         super.onResume();
 //        test();
+
     }
 
     @Override

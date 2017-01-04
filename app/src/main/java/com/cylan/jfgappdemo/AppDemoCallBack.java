@@ -266,4 +266,9 @@ public class AppDemoCallBack implements AppCallBack {
     public void OnNotifyStorageType(int type) {
         SLog.i("storage type: " + type);
     }
+
+    @Override
+    public void OnRobotGetDataExRsp(long seq, String idtity, ArrayList<JFGDPMsg> dps) {
+        SLog.i("OnRobotGetDataExRsp: seq = [" + seq + "], idtity = [" + idtity + "], dps = [" + dps.size() + "]");
+    }
 }
