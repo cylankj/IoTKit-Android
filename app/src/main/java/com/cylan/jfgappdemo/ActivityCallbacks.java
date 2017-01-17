@@ -26,7 +26,7 @@ public class ActivityCallbacks implements Application.ActivityLifecycleCallbacks
     @Override
     public void onActivityStarted(Activity activity) {
         count++;
-        SLog.i("count: " + count);
+        SLog.d("count: " + count);
         if (JfgAppCmd.getInstance() != null) {
             JfgAppCmd.getInstance().reportEnvChange(JfgEnum.ENV_ONTOP);
         }
@@ -45,7 +45,7 @@ public class ActivityCallbacks implements Application.ActivityLifecycleCallbacks
     @Override
     public void onActivityStopped(Activity activity) {
         count--;
-        SLog.i("count: " + count);
+        SLog.d("count: " + count);
         if (count == 0) {
             if (JfgAppCmd.getInstance() != null) {
                 JfgAppCmd.getInstance().reportEnvChange(JfgEnum.ENV_ONBACK);

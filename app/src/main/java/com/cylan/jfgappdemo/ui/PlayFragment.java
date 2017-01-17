@@ -174,7 +174,11 @@ public class PlayFragment extends BaseFragment {
                 e.printStackTrace();
             }
         }
-        JfgAppCmd.getInstance().removeRenderRemoteView();
+        try {
+            JfgAppCmd.getInstance().enableRenderRemoteView(false,0,videoView);
+        } catch (JfgException e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -467,7 +471,7 @@ public class PlayFragment extends BaseFragment {
         binding.vsStateView.setVisibility(View.GONE);
         binding.tvBitRate.setVisibility(View.VISIBLE);
         try {
-            JfgAppCmd.getInstance().setRenderRemoteView(videoView);
+            JfgAppCmd.getInstance().enableRenderRemoteView(true,0,videoView);
         } catch (JfgException e) {
             e.printStackTrace();
         }

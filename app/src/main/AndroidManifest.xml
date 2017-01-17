@@ -31,13 +31,13 @@
         <!-- your vkey -->
         <meta-data
             android:name="vkey"
-            android:value="Z5SYDbLV44zfFGRdAgFQhH62fAnIqf3G"  />
-            <!--android:value="ehOJhHkpi9H4q6WfYMLlmNiJWypMxfwu" />-->
+            android:value="Z5SYDbLV44zfFGRdAgFQhH62fAnIqf3G" />
+        <!--android:value="ehOJhHkpi9H4q6WfYMLlmNiJWypMxfwu" />-->
         <!--change server address -->
         <meta-data
             android:name="ServerAddress"
             android:value="yf.jfgou.com:443" />
-            <!--android:value="robot.jfgou.com:443" />-->
+        <!--android:value="yun.jfgou.com:443" />-->
 
 
         <activity android:name=".ui.DemoActivity">
@@ -50,6 +50,9 @@
         <activity
             android:name=".ui.VRPlayActivity"
             android:configChanges="orientation|keyboardHidden|screenSize" />
+        <activity
+            android:name=".ui.MultVideoActivity"
+            android:screenOrientation="landscape" />
     </application>
 
 </manifest>

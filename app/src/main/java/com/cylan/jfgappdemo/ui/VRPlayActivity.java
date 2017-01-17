@@ -135,7 +135,11 @@ public class VRPlayActivity extends Activity {
         if (isPlaying) {
             stopPlay();
         }
-        JfgAppCmd.getInstance().removeRenderRemoteView();
+        try {
+            JfgAppCmd.getInstance().enableRenderRemoteView(false, 0,panoramicView);
+        } catch (JfgException e) {
+            e.printStackTrace();
+        }
     }
 
     private void addListener() {
@@ -220,7 +224,7 @@ public class VRPlayActivity extends Activity {
         binding.pbLoading.setVisibility(View.GONE);
         binding.tvBitRate.setVisibility(View.VISIBLE);
         try {
-            JfgAppCmd.getInstance().setRenderRemoteView(panoramicView);
+            JfgAppCmd.getInstance().enableRenderRemoteView(true, 0,panoramicView);
         } catch (JfgException e) {
             e.printStackTrace();
         }

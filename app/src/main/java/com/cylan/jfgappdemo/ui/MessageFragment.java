@@ -127,7 +127,7 @@ public class MessageFragment extends BaseFragment {
                 // 获取报警图片URL
                 String url = null;
                 try {
-                    url = JfgAppCmd.getInstance().getCloudUrlByType(JfgEnum.JFG_URL.WARNING,info.type,file,identity);
+                    url = JfgAppCmd.getInstance().getCloudUrlByType(JfgEnum.JFG_URL.WARNING,info.type,file,identity,"0001");
                 } catch (JfgException e) {
                     e.printStackTrace();
                 }
