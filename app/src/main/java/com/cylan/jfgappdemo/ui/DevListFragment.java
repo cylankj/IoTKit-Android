@@ -88,13 +88,12 @@ public class DevListFragment extends BaseFragment {
                 if (v.getTag() != null && v.getTag() instanceof Integer) {
                     final int position = (int) v.getTag();
                     JFGDevice d = adapter.getDevice()[position];
-//                    if (true) {
-//                        Intent intent = new Intent(getContext(), MultVideoActivity.class);
-//                        intent.putExtra("device", d);
-//                        getContext().startActivity(intent);
-//                    } else
-
-                    if (d.pid == 86 || d.pid == 18 || d.pid == 19) {
+                    SLog.e("pid:" + d.pid);
+                    if (d.pid == 1348) {
+                        Intent intent = new Intent(getContext(), MultVideoActivity.class);
+                        intent.putExtra("device", d);
+                        getContext().startActivity(intent);
+                    } else if (d.pid == 86 || d.pid == 18 || d.pid == 19) {
                         Intent intent = new Intent(getContext(), VRPlayActivity.class);
                         intent.putExtra("device", d);
                         getContext().startActivity(intent);
