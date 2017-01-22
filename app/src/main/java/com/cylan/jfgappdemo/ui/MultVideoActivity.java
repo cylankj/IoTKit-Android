@@ -1,24 +1,17 @@
 package com.cylan.jfgappdemo.ui;
 
 import android.app.Activity;
-import android.content.res.Resources;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.view.MotionEvent;
 import android.view.SurfaceView;
-import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationSet;
-import android.view.animation.ScaleAnimation;
 import android.widget.CompoundButton;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
-import android.widget.ViewSwitcher;
+import android.widget.ToggleButton;
 
 import com.cylan.entity.jniCall.JFGDevice;
 import com.cylan.entity.jniCall.JFGMsgVideoDisconn;
 import com.cylan.entity.jniCall.JFGMsgVideoResolution;
+import com.cylan.entity.jniCall.JFGVideoRect;
 import com.cylan.entity.jniCall.RobotMsg;
 import com.cylan.ex.JfgException;
 import com.cylan.jfgapp.jni.JfgAppCmd;
@@ -37,6 +30,7 @@ import java.util.ArrayList;
 
 
 /**
+ * 多路视频播放界面
  * Created by tim on 17-1-13.
  */
 
@@ -44,13 +38,11 @@ public class MultVideoActivity extends Activity {
 
     JFGDevice device;
     int len = 4;
-    RelativeLayout root[] = new RelativeLayout[4];
-    SurfaceView[] sv = new SurfaceView[len];
-    ViewSwitcher vs[] = new ViewSwitcher[len];
-    ImageView iv[] = new ImageView[len];
+    SurfaceView sv;
+    ToggleButton iv[] = new ToggleButton[len];
+    JFGVideoRect rect[] = new JFGVideoRect[len];
     int[] camId = new int[len];
     int[] ssrc = new int[len];
-    boolean[] isplay = new boolean[len];
     ActivityMulVideoBinding binding;
     boolean flag;
     public ArrayList<String> tag = new ArrayList<>();
@@ -72,36 +64,23 @@ public class MultVideoActivity extends Activity {
 
     public void init() {
         tag.add(device.uuid);
-        vs[0] = binding.vs1;
-        vs[1] = binding.vs2;
-        vs[2] = binding.vs3;
-        vs[3] = binding.vs4;
         iv[0] = binding.ivPlay1;
         iv[1] = binding.ivPlay2;
         iv[2] = binding.ivPlay3;
         iv[3] = binding.ivPlay4;
-        root[0] = binding.v1;
-        root[1] = binding.v2;
-        root[2] = binding.v3;
-        root[3] = binding.v4;
-        for (int i = 0; i < sv.length; i++) {
-            sv[i] = ViERenderer.CreateRenderer(getBaseContext(), true);
+        rect[0] = new JFGVideoRect(0, 0, 0.499f, 0.499f);
+        rect[1] = new JFGVideoRect(0.501f, 0, 1, 0.499f);
+        rect[2] = new JFGVideoRect(0, 0.501f, 0.499f, 1);
+        rect[3] = new JFGVideoRect(0.501f, 0.501f, 1, 1);
+        sv = ViERenderer.CreateRenderer(getBaseContext(), true);
+        binding.llRoot.addView(sv, 0);
+        for (int i = 0; i < len; i++) {
             camId[i] = i + 1;
             ssrc[i] = 1000 + i;
-            iv[i].setOnClickListener(new PlayListener(i));
-            root[i].addView(sv[i], 0);
-            root[i].setOnTouchListener(new TouchListener(i));
+            iv[i].setOnCheckedChangeListener(new CheckedChangeListener(i));
         }
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        binding.tb1.setOnCheckedChangeListener(new CheckedChangeListener(0));
-        binding.tb2.setOnCheckedChangeListener(new CheckedChangeListener(1));
-        binding.tb3.setOnCheckedChangeListener(new CheckedChangeListener(2));
-        binding.tb4.setOnCheckedChangeListener(new CheckedChangeListener(3));
-    }
 
     @Override
     protected void onDestroy() {
@@ -113,11 +92,6 @@ public class MultVideoActivity extends Activity {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void OnVideoDisconnect(JFGMsgVideoDisconn msg) {
         flag = false;
-        //show play view
-//        binding.vsStateView.setVisibility(View.VISIBLE);
-//        binding.ivPlay.setImageResource(R.drawable.btn_play);
-//        binding.vsStateView.setDisplayedChild(0);
-
         // 重置所有的view
         SLog.e(msg.remote + " errCode:" + msg.code);
         Toast.makeText(this, "err:" + msg.code, Toast.LENGTH_SHORT).show();
@@ -131,16 +105,15 @@ public class MultVideoActivity extends Activity {
         for (int i = 0; i < len; i++) {
             if (ssrc[i] == msg.ssrc) {
                 index = i;
-                isplay[i] = true;
-                SLog.e("ssrc index:" + index);
+                SLog.i("ssrc index:" + index);
             }
         }
         try {
-            JfgAppCmd.getInstance().enableRenderRemoteView(true, msg.ssrc, sv[index]);
+            JfgAppCmd.getInstance().enableRenderMultiRemoteView(true, msg.ssrc, sv, rect[index]);
         } catch (JfgException e) {
             e.printStackTrace();
         }
-        vs[index].setVisibility(View.GONE);
+
     }
 
 
@@ -148,70 +121,12 @@ public class MultVideoActivity extends Activity {
     protected void onPause() {
         super.onPause();
         try {
-            if (flag) {
-                JfgAppCmd.getInstance().stopPlay(device.uuid);
-            }
+            JfgAppCmd.getInstance().stopPlay(device.uuid);
         } catch (JfgException e) {
             e.printStackTrace();
         }
     }
 
-
-    class TouchListener implements View.OnTouchListener {
-        int index;
-
-        public TouchListener(int index) {
-            this.index = index;
-        }
-
-        @Override
-        public boolean onTouch(View v, MotionEvent event) {
-            if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                SLog.i("touch: " + index);
-                vs[index].setVisibility(View.VISIBLE);
-                vs[index].setDisplayedChild(0);
-                vs[index].postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        vs[index].setVisibility(View.GONE);
-                    }
-                }, 2000);
-                return true;
-            }
-            return false;
-        }
-    }
-
-    class PlayListener implements View.OnClickListener {
-        int index;
-
-        public PlayListener(int index) {
-            this.index = index;
-        }
-
-        @Override
-        public void onClick(View v) {
-            try {
-                boolean tmp = isplay[index];
-                if (!tmp) {
-                    // play
-                    if (!flag) {
-                        JfgAppCmd.getInstance().playVideo(device.uuid);
-                        flag = true;  // 标志一下打开播放句柄
-                    } // 发一个透传消息到设备
-                }
-                PlayMultVideoData data = new PlayMultVideoData(tmp ? 2 : 1, camId[index], ssrc[index]);
-                JfgAppCmd.getInstance().robotTransmitMsg(new RobotMsg(tag, getSn(), false, JfgMsgPackUtils.pack(data)));
-                SLog.i(data.toString());
-                vs[index].setVisibility(View.VISIBLE);
-                vs[index].setDisplayedChild(tmp ? 0 : 1);
-                iv[index].setImageResource(tmp ? R.drawable.btn_play : R.drawable.btn_pause);
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
 
     class CheckedChangeListener implements CompoundButton.OnCheckedChangeListener {
         int index;
@@ -222,17 +137,22 @@ public class MultVideoActivity extends Activity {
 
         @Override
         public void onCheckedChanged(CompoundButton v, boolean isChecked) {
-            if (isChecked) {
-                // 放大一个view
-                //增加点击放大效果
-
-                RelativeLayout.LayoutParams p = (RelativeLayout.LayoutParams) root[index].getLayoutParams();
-                p.height = Resources.getSystem().getDisplayMetrics().heightPixels;
-                p.width = Resources.getSystem().getDisplayMetrics().widthPixels;
-                root[index].setLayoutParams(p);
-
-            } else {
-                // 缩小回原样
+            int open;
+            try {
+                if (isChecked) {
+                    if (!flag) {
+                        JfgAppCmd.getInstance().playVideo(device.uuid);
+                        flag = true;  // 标志一下打开播放句柄
+                    } // 发一个透传消息到设备
+                    open = 1;
+                } else {
+                    open = 2;
+                }
+                PlayMultVideoData data = new PlayMultVideoData(open, camId[index], ssrc[index]);
+                JfgAppCmd.getInstance().robotTransmitMsg(new RobotMsg(tag, getSn(), false, JfgMsgPackUtils.pack(data)));
+                SLog.i(data.toString());
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
     }

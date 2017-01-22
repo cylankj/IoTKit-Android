@@ -16,6 +16,7 @@ import com.cylan.entity.jniCall.JFGDevice;
 import com.cylan.entity.jniCall.JFGMsgVideoDisconn;
 import com.cylan.entity.jniCall.JFGMsgVideoResolution;
 import com.cylan.entity.jniCall.JFGMsgVideoRtcp;
+import com.cylan.entity.jniCall.JFGVideoRect;
 import com.cylan.ex.JfgException;
 import com.cylan.jfgapp.jni.JfgAppCmd;
 import com.cylan.entity.JfgEvent;
@@ -136,7 +137,7 @@ public class VRPlayActivity extends Activity {
             stopPlay();
         }
         try {
-            JfgAppCmd.getInstance().enableRenderRemoteView(false, 0,panoramicView);
+            JfgAppCmd.getInstance().enableRenderSingleRemoteView(false,panoramicView);
         } catch (JfgException e) {
             e.printStackTrace();
         }
@@ -224,7 +225,7 @@ public class VRPlayActivity extends Activity {
         binding.pbLoading.setVisibility(View.GONE);
         binding.tvBitRate.setVisibility(View.VISIBLE);
         try {
-            JfgAppCmd.getInstance().enableRenderRemoteView(true, 0,panoramicView);
+            JfgAppCmd.getInstance().enableRenderSingleRemoteView(true, panoramicView);
         } catch (JfgException e) {
             e.printStackTrace();
         }

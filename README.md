@@ -9,6 +9,17 @@
 
 ###更新说明
 
+#### 3.0.157
+  1. 为兼容多路视频预览，新加接口。
+  ```java
+     enableRenderMultiRemoteView(boolean enable,int ssrc,Object view,JFGVideoRect rect);
+ ```
+ 2. 单路视频预览接口改为
+ ```java
+    enableRenderSingleRemoteView(boolean enable, Object view);
+ ```
+ 3. JFGDevice 类加入vid 变量。获取报警图片的URL时，需要传入设备的VID。
+
 #### 3.0.154
   1. 获取云存储路径时，需要传入VID
   2. 删除过时的openLogin接口，使用具有3个参数的openLogin接口。

@@ -18,6 +18,7 @@ import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.cylan.entity.JfgEvent;
 import com.cylan.entity.jniCall.JFGDevice;
 import com.cylan.entity.jniCall.JFGMsgVideoDisconn;
 import com.cylan.entity.jniCall.JFGMsgVideoResolution;
@@ -26,7 +27,6 @@ import com.cylan.entity.jniCall.JFGVideo;
 import com.cylan.ex.JfgException;
 import com.cylan.jfgapp.interfases.CallBack;
 import com.cylan.jfgapp.jni.JfgAppCmd;
-import com.cylan.entity.JfgEvent;
 import com.cylan.jfgappdemo.R;
 import com.cylan.jfgappdemo.databinding.FragmentPlayBinding;
 import com.cylan.utils.JfgNetUtils;
@@ -60,6 +60,7 @@ public class PlayFragment extends BaseFragment {
      * The Video view.
      */
     SurfaceView videoView;
+
     /**
      * The Playing.
      */
@@ -175,7 +176,7 @@ public class PlayFragment extends BaseFragment {
             }
         }
         try {
-            JfgAppCmd.getInstance().enableRenderRemoteView(false,0,videoView);
+            JfgAppCmd.getInstance().enableRenderSingleRemoteView(false, videoView);
         } catch (JfgException e) {
             e.printStackTrace();
         }
@@ -471,7 +472,7 @@ public class PlayFragment extends BaseFragment {
         binding.vsStateView.setVisibility(View.GONE);
         binding.tvBitRate.setVisibility(View.VISIBLE);
         try {
-            JfgAppCmd.getInstance().enableRenderRemoteView(true,0,videoView);
+            JfgAppCmd.getInstance().enableRenderSingleRemoteView(true, videoView);
         } catch (JfgException e) {
             e.printStackTrace();
         }

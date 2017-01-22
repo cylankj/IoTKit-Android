@@ -88,8 +88,8 @@ public class DevListFragment extends BaseFragment {
                 if (v.getTag() != null && v.getTag() instanceof Integer) {
                     final int position = (int) v.getTag();
                     JFGDevice d = adapter.getDevice()[position];
-                    SLog.e("pid:" + d.pid);
-                    if (d.pid == 1348) {
+                    SLog.i("pid:" + d.pid);
+                    if (d.pid == 1348) {  // 多路视频
                         Intent intent = new Intent(getContext(), MultVideoActivity.class);
                         intent.putExtra("device", d);
                         getContext().startActivity(intent);
@@ -131,19 +131,13 @@ public class DevListFragment extends BaseFragment {
     public void onResume() {
         super.onResume();
 //        test();
-
     }
 
-    @Override
-    public void onPause() {
-        super.onPause();
-
-    }
 
     @Override
     public void onStop() {
         super.onStop();
-        SLog.e("onStop");
+        SLog.d("onStop");
         EventBus.getDefault().unregister(this);
     }
 
@@ -176,6 +170,7 @@ public class DevListFragment extends BaseFragment {
         adapter.notifyDataSetChanged();
         // 开始查dataPoint;
         for (JFGDevice dev : devs) {
+            SLog.i(dev.vid);
             getDataPoint(dev.uuid);
         }
     }
