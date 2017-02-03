@@ -153,10 +153,8 @@ public class InputWifiCfgFragment extends BaseFragment {
                 String pwd = binding.etWifiPwd.getText().toString().trim();
                 if (TextUtils.isEmpty(ssid)) return;
                 JfgAppUdpCmd cmd = JfgAppUdpCmd.getInstance(getContext());
-                // set dev languae
-                cmd.setLanguage(JfgConstants.IP, bean.cid, bean.mac);
-                // set dev server address
-                cmd.setServerAddress(JfgConstants.IP, bean.cid, bean.mac);
+                cmd.setLanguage(JfgConstants.IP, bean.cid, bean.mac);// set dev languae
+                cmd.setServerAddress(JfgConstants.IP, bean.cid, bean.mac);// set dev server address
                 // set dev bind code ,for sdk 3.0
                 String md5str = JfgMD5Util.lowerCaseMD5(JFGAppliction.account + System.currentTimeMillis());
                 cmd.setBindCode(JfgConstants.IP, bean.cid, bean.mac, md5str);
@@ -164,11 +162,9 @@ public class InputWifiCfgFragment extends BaseFragment {
                 SLog.i("bind code : " + md5str);
                 JFGAppliction.bindBean = bean;
                 // set dev wifi config
-                if (bean.devNetType == 0) {
-                    // wifi cam or door bell
+                if (bean.devNetType == 0) {// wifi cam or door bell
                     cmd.setWifiCfg(JfgConstants.IP, bean.cid, bean.mac, ssid, pwd);
-                } else if (bean.devNetType == 2) {
-                    // 3G or 4g cam
+                } else if (bean.devNetType == 2) {// 3G or 4g cam
                     cmd.setWifiCfg(JfgConstants.IP, bean.cid, bean.mac, "", "");
                 }
 

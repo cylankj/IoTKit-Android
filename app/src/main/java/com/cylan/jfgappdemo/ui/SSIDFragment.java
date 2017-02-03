@@ -180,7 +180,6 @@ public class SSIDFragment extends BaseFragment {
     @Override
     public void onStart() {
         super.onStart();
-        SLog.e("onStart");
         initHandler();
         bindDevBean = new BindDevBean();
         scaner.sendEmptyMessage(1);

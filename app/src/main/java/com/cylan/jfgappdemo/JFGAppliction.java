@@ -8,6 +8,7 @@ import android.os.Environment;
 import com.cylan.ex.JfgException;
 import com.cylan.jfgapp.jni.JfgAppCmd;
 import com.cylan.jfgappdemo.datamodel.BindDevBean;
+import com.superlog.SLog;
 
 import java.io.File;
 
@@ -63,8 +64,10 @@ public class JFGAppliction extends Application {
             @Override
             public void run() {
                 try {
-                    // 初始化,Context , AppCallBack , log file path .日志文件的存放路径。
-                    JfgAppCmd.initJfgAppCmd(ctx, cb, file.getAbsolutePath());
+                    // 初始化,Context , AppCallBack
+                    JfgAppCmd.initJfgAppCmd(ctx, cb);
+                    //log file path .日志文件的存放路径。
+                    JfgAppCmd.getInstance().enableLog(true, file.getAbsolutePath());
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

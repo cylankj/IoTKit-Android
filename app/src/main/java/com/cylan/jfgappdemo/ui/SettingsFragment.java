@@ -92,7 +92,7 @@ public class SettingsFragment extends BaseFragment {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 int type = checkedId == R.id.rb_2 ? 1 : checkedId == R.id.rb_3 ? 2 : 0;
-                SLog.w("checkedId:" + checkedId);
+                SLog.i("checkedId:" + checkedId);
                 ArrayList<JFGDPMsg> list = new ArrayList<JFGDPMsg>();
                 JFGDPMsg msg = new JFGDPMsg(303, System.currentTimeMillis() / 1000);
                 try {
@@ -163,7 +163,7 @@ public class SettingsFragment extends BaseFragment {
 
     @Subscribe()
     public void onSetDataRsp(JfgEvent.RobotoSetDataRsp rsp) {
-        SLog.w("setData seq: " + rsp.seq);
+        SLog.i("setData seq: " + rsp.seq);
     }
 
 

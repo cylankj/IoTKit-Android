@@ -79,6 +79,7 @@ public class MultVideoActivity extends Activity {
             ssrc[i] = 1000 + i;
             iv[i].setOnCheckedChangeListener(new CheckedChangeListener(i));
         }
+
     }
 
 

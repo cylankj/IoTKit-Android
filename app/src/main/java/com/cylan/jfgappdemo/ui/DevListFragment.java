@@ -151,7 +151,7 @@ public class DevListFragment extends BaseFragment {
                 // show add dev fragment
                 getFragmentManager().beginTransaction()
                         .hide(DevListFragment.this).addToBackStack("list")
-                        .add(R.id.fl_container, AddDevFragment.getInstance()).commit();
+                        .add(R.id.fl_container, BindDevFragment.getInstance()).commit();
             }
         });
     }
@@ -313,7 +313,7 @@ public class DevListFragment extends BaseFragment {
         }
         JFGAppliction.bindBean = null;
         JFGAppliction.bindModel = false;
-        EventBus.getDefault().post(new AddDevFragment.ExitFragmentEvent());
+//        EventBus.getDefault().post(new AddDevFragment.ExitFragmentEvent());
     }
 
 
