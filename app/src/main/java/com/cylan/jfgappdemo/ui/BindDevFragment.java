@@ -60,7 +60,6 @@ public class BindDevFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_binddev, container, false);
-        SLog.i("onCreateView: ");
         return binding.getRoot();
     }
 
@@ -68,7 +67,6 @@ public class BindDevFragment extends BaseFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        SLog.i("onViewCreated: ");
         initView();
         initHandler();
         EventBus.getDefault().register(this);
@@ -114,7 +112,7 @@ public class BindDevFragment extends BaseFragment {
                 startActivityForResult(new Intent(Settings.ACTION_WIFI_SETTINGS), 110);
             }
         });
-        binding.tvTips.setText("如果设备AP模式已启动，请连接设备发出的SSID，否则请先开启设备AP模式");
+        binding.tvTips.setText("If device AP mode is enabled, connect the device SSID . Otherwise, enable device AP mode first.");
     }
 
 

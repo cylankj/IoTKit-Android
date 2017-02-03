@@ -313,7 +313,6 @@ public class DevListFragment extends BaseFragment {
         }
         JFGAppliction.bindBean = null;
         JFGAppliction.bindModel = false;
-//        EventBus.getDefault().post(new AddDevFragment.ExitFragmentEvent());
     }
 
 
