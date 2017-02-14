@@ -205,6 +205,7 @@ public class DevListFragment extends BaseFragment {
         ArrayList<JFGDPMsg> dp = new ArrayList<>();
         dp.add(new JFGDPMsg(201, 0));// query dev network
         dp.add(new JFGDPMsg(206, 0));// query dev battery
+        dp.add(new JFGDPMsg(207, 0));// fw version
         long seq = 0;
         try {
             seq = JfgAppCmd.getInstance().robotGetData(peer, dp, 1, false, 0);
@@ -236,6 +237,11 @@ public class DevListFragment extends BaseFragment {
                 int battery = JfgMsgPackUtils.unpack(dp.packValue, Integer.class);
                 SLog.i("cid: " + rsp.identity + " , battery: " + battery);
 
+            } else if (entry.getKey() == 207) {
+                if (entry.getValue().isEmpty()) continue;
+                JFGDPMsg dp = entry.getValue().get(0);
+                String fwversion = JfgMsgPackUtils.unpack(dp.packValue, String.class);
+                SLog.i("cid: " + rsp.identity + " , fw version: " + fwversion);
             }
 
             if (201 != entry.getKey()) continue;
