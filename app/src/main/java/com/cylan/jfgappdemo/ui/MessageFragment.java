@@ -155,7 +155,7 @@ public class MessageFragment extends BaseFragment {
                 if (list.size() != 0) {
                     long version = list.get(last).version;
                     try {
-                        getMessage(version, true); // 传入最好一天记录的版本号
+                        getMessage(version, true); // 传入最后一天记录的版本号
                     } catch (JfgException e) {
                         e.printStackTrace();
                     }
@@ -203,7 +203,12 @@ public class MessageFragment extends BaseFragment {
         JFGDPMsg msg = new JFGDPMsg(505, version); // msg warn dp id 505
         SLog.w("del msg by :" + version);
         dps.add(msg);
-        long seq = JfgAppCmd.getInstance().robotDelData(device.uuid, dps, 0);
+        long seq = 0;
+        try {
+            seq = JfgAppCmd.getInstance().robotDelData(device.uuid, dps, 0);
+        } catch (JfgException e) {
+            e.printStackTrace();
+        }
         delSeqMap.put(seq, position);
     }
 

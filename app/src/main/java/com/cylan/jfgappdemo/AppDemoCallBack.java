@@ -30,6 +30,7 @@ import com.superlog.SLog;
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * 所有JFGSDK的回调都在此类中接收
@@ -270,5 +271,15 @@ public class AppDemoCallBack implements AppCallBack {
     @Override
     public void OnRobotGetDataExRsp(long seq, String idtity, ArrayList<JFGDPMsg> dps) {
         SLog.i("OnRobotGetDataExRsp: seq = [" + seq + "], idtity = [" + idtity + "], dps = [" + dps.size() + "]");
+    }
+
+    @Override
+    public HashMap<String, String> getAppParameter() {
+        return null;
+    }
+
+    @Override
+    public void OnBindDevRsp(int ret, String cid) {
+        SLog.i("Bind dev: " + ret + " , cid: " + cid);
     }
 }

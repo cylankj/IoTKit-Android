@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
 import com.cylan.constants.JfgConstants;
 import com.cylan.entity.JfgEvent;
@@ -86,6 +87,10 @@ public class BindDevFragment extends BaseFragment {
                     case 3:
                         showInputView();
                         break;
+                    case 4:
+                        Toast.makeText(getContext(), "bind devices time out!", Toast.LENGTH_SHORT).show();
+                        initView();
+                        break;
                 }
                 return true;
             }
@@ -113,6 +118,7 @@ public class BindDevFragment extends BaseFragment {
             }
         });
         binding.tvTips.setText("If device AP mode is enabled, connect the device SSID . Otherwise, enable device AP mode first.");
+        binding.btnSettings.setText("OK");
     }
 
 
@@ -124,6 +130,7 @@ public class BindDevFragment extends BaseFragment {
             binding.btnSettings.setVisibility(View.GONE);
             SLog.i("onActivityResult: send config");
             handler.sendEmptyMessageDelayed(1, 1000);
+            handler.sendEmptyMessageDelayed(4, 60 * 1000); // time out!
             binding.tvTips.setText("Send Ping...");
         }
     }
@@ -143,6 +150,7 @@ public class BindDevFragment extends BaseFragment {
     }
 
     public void sendCfg() {
+        handler.removeCallbacksAndMessages(null);
         cmd.setLanguage(JfgConstants.IP, bean.cid, bean.mac);
         cmd.setServerAddress(JfgConstants.IP, bean.cid, bean.mac);// set dev server address
         String md5str = JfgMD5Util.lowerCaseMD5(JFGAppliction.account + System.currentTimeMillis());
