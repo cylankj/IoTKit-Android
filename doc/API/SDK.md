@@ -60,7 +60,7 @@
 ```
   注：1.如果普通问题需要协助的，请告知您当前使用的是哪个版本的sdk ，即aar包中显示的文件名如：3.0.140。和smartCall_t.txt日志,并告知大概时间节点。
        如果是必现的问题，可以将此日志文件删除后重新运行程序，再提供此日志，可以排除其他干扰，便于定位。
-      2.如果发生奔溃，在以上日志基础上，请抓取一段logcat日志,如在linux终端中执行：adb logcat DEBUG *:I *:S >> crash.log 
+      2.如果发生崩溃，在以上日志基础上，请抓取一段logcat日志,如在linux终端中执行：adb logcat DEBUG *:I *:S >> crash.log
        carsh.log 文件中必须抓取到堆栈信息，如图：
       ![](assets/crash.png)
 

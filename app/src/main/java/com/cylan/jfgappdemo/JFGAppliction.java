@@ -68,6 +68,7 @@ public class JFGAppliction extends Application {
                     JfgAppCmd.initJfgAppCmd(ctx, cb);
                     //log file path .日志文件的存放路径。
                     JfgAppCmd.getInstance().enableLog(true, file.getAbsolutePath());
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
