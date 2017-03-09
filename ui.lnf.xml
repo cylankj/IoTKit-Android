@@ -1,5 +1,6 @@
 <application>
   <component name="UISettings">
-    <option name="HIDE_TOOL_STRIPES" value="false" />
+    <option name="FONT_FACE" value="Yu Gothic" />
+    <option name="SHOW_TOOL_WINDOW_NUMBERS" value="false" />
   </component>
 </application>
