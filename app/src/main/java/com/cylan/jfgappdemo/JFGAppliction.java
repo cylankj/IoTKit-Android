@@ -21,7 +21,6 @@ public class JFGAppliction extends Application {
 
     static {
         System.loadLibrary("jfgsdk");
-        System.loadLibrary("sqlcipher");
     }
 
     /**
