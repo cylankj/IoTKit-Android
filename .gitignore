@@ -60,3 +60,5 @@ captures/
 将删除 gradlew.bat
 将删除 local.properties
 将删除 settings.gradle
+/diff.xml
+/androidEditors.xml
