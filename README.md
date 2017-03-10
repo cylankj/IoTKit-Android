@@ -9,7 +9,7 @@
 
 ###更新说明
 
-#### 3.0.161
+#### 3.0.169
   1. 避免线程不同步的问题，更改初始化方式。参考demo。[初始化](doc/API/SDK.md)
   2. 修复调用API时，seq为负数的问题。
   3. 获取签名的URL需要自行拼接（不需要带bucket），然后再调用签名的API。 getSignedCloudUrl(regionType,url)。
