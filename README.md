@@ -9,6 +9,15 @@
 
 ###更新说明
 
+#### 3.0.161
+  1. 避免线程不同步的问题，更改初始化方式。参考demo。[初始化](doc/API/SDK.md)
+  2. 修复调用API时，seq为负数的问题。
+  3. 获取签名的URL需要自行拼接（不需要带bucket），然后再调用签名的API。 getSignedCloudUrl(regionType,url)。详情看服务器定义。
+  4. JfgDevice 添加regionType，vid 属性。
+  5. 优化由于在SDK的回调线程中调用媒体API导致的线程卡住的问题。
+  6. 由于和其他项目冲突，删除数据库。
+  7. 修复setAudio()参数顺序错误的问题。
+
 #### 3.0.160
   1. 新增接口，获取分享视频的url。
   2. onResult回调中添加消息序号。

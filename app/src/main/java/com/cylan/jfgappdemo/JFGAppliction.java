@@ -2,13 +2,10 @@ package com.cylan.jfgappdemo;
 
 import android.app.Application;
 import android.content.Context;
-import android.content.pm.PackageManager;
 import android.os.Environment;
 
-import com.cylan.ex.JfgException;
 import com.cylan.jfgapp.jni.JfgAppCmd;
 import com.cylan.jfgappdemo.datamodel.BindDevBean;
-import com.superlog.SLog;
 
 import java.io.File;
 
@@ -46,27 +43,27 @@ public class JFGAppliction extends Application {
      */
     public static String account;
 
-    private Context ctx;
-
     @Override
     public void onCreate() {
         super.onCreate();
         cb = new AppDemoCallBack();
-        File dir = Environment.getExternalStorageDirectory();
-        final File file = new File(dir, "/JfgAppDemo");
-        if (!file.exists()) {
-            file.mkdir();
-        }
-        ctx = this;
         // 不再放在主线程中调用。
         new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
+                    File dir = Environment.getExternalStorageDirectory();
+                    final File file = new File(dir, "/JfgAppDemo");
+                    if (!file.exists()) {
+                        file.mkdir();
+                    }
                     // 初始化,Context , AppCallBack
-                    JfgAppCmd.initJfgAppCmd(ctx, cb);
+                   JfgAppCmd cmd = JfgAppCmd.getInstance();
+                    cmd.setCallBack(cb);
+                    // vid , vkey ,serveraddress
+                    cmd.initNativeParam("0001","Z5SYDbLV44zfFGRdAgFQhH62fAnIqf3G","yun.jfgou.com:443");
                     //log file path .日志文件的存放路径。
-                    JfgAppCmd.getInstance().enableLog(true, file.getAbsolutePath());
+                    cmd.enableLog(true, file.getAbsolutePath());
 
                 } catch (Exception e) {
                     e.printStackTrace();
