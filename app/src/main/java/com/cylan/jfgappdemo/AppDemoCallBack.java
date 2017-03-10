@@ -32,7 +32,6 @@ import com.superlog.SLog;
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * 所有JFGSDK的回调都在此类中接收
@@ -167,13 +166,13 @@ public class AppDemoCallBack implements AppCallBack {
 
     @Override
     public void OnDoorBellCall(JFGDoorBellCaller caller) {
-        SLog.d("call form: " + caller.cid + " , url: " + caller.url);
+        SLog.d("call form: " + caller.cid );
         EventBus.getDefault().post(caller);
     }
 
     @Override
-    public void OnOtherClientAnswerCall() {
-        SLog.d("");
+    public void OnOtherClientAnswerCall(String cid) {
+        SLog.d(cid);
     }
 
 
@@ -246,11 +245,6 @@ public class AppDemoCallBack implements AppCallBack {
     }
 
     @Override
-    public void OnEfamilyMsg(byte[] bytes) {
-        SLog.d("");
-    }
-
-    @Override
     public void OnForgetPassByEmailRsp(int ret, String email) {
         SLog.d("");
     }
@@ -278,11 +272,6 @@ public class AppDemoCallBack implements AppCallBack {
     @Override
     public void OnRobotGetDataExRsp(long seq, String idtity, ArrayList<JFGDPMsg> dps) {
         SLog.i("OnRobotGetDataExRsp: seq = [" + seq + "], idtity = [" + idtity + "], dps = [" + dps.size() + "]");
-    }
-
-    @Override
-    public HashMap<String, String> getAppParameter() {
-        return null;
     }
 
     @Override

@@ -59,8 +59,6 @@ public class DemoActivity extends FragmentActivity {
         } else if (checkExtraFragment())
             return;
         if (System.currentTimeMillis() - time < 1500) {
-            // close database
-            JfgAppCmd.getInstance().closeDataBase();
             super.onBackPressed();
         } else {
             time = System.currentTimeMillis();

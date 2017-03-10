@@ -4,9 +4,11 @@ import android.content.DialogInterface;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.text.TextUtilsCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -121,17 +123,17 @@ public class MessageFragment extends BaseFragment {
             throw new UnknownError("files > 7 !");
         }
         ArrayList<String> urls = new ArrayList<>();
+
+      boolean lowVersion =  TextUtils.isEmpty(device.vid);
         for (int i = 0; i < 3; i++) {
             if ((info.files >> i & 0x1) == 1) {
-                String file = info.time + "_" + (i + 1) + ".jpg";
-                // 获取报警图片URL
-                String url = null;
-                try {
-                    url = JfgAppCmd.getInstance().getCloudUrlByType(JfgEnum.JFG_URL.WARNING,info.type,file,identity,"0001");
-                } catch (JfgException e) {
-                    e.printStackTrace();
+                String url ;
+                if (lowVersion){
+                    url = String.format("/%s/%s_d.jpg",device.uuid,info.time,(i+1));
+                }else {
+                    url = String.format("/cid/%s/%s/%s_%d.jpg",device.vid,device.uuid,info.time,(i+1));
                 }
-//                SLog.i(url);
+                JfgAppCmd.getInstance().getSignedCloudUrl(info.type,url);
                 urls.add(url);  // add url ;
             }
         }

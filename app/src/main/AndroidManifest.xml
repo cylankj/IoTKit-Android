@@ -32,13 +32,10 @@
         <meta-data
             android:name="vkey"
             android:value="Z5SYDbLV44zfFGRdAgFQhH62fAnIqf3G" />
-        <!--android:value="ehOJhHkpi9H4q6WfYMLlmNiJWypMxfwu" />-->
         <!--change server address -->
         <meta-data
             android:name="ServerAddress"
-            android:value="yf.jfgou.com:443" />
-        <!--android:value="yun.jfgou.com:443" />-->
-
+            android:value="yun.jfgou.com:443" />
 
         <activity android:name=".ui.DemoActivity">
             <intent-filter>
