@@ -1,0 +1,13 @@
+com.cylan.constants
+com.cylan.database
+com.cylan.entity
+com.cylan.entity.jniCall
+com.cylan.ex
+com.cylan.jfgapp.interfases
+com.cylan.jfgapp.jni
+com.cylan.panorama
+com.cylan.udpMsgPack
+com.cylan.utils
+org.webrtc.interfaces
+org.webrtc.videoengine
+org.webrtc.voiceengine

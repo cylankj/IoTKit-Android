@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#9acccccc">
+
+            <ImageView
+                android:id="@+id/iv_message"
+                android:layout_width="41dp"
+                android:layout_height="41dp"
+                android:layout_alignParentLeft="true"
+                android:padding="4dp"
+                android:src="@drawable/icon_message" />
+
+            <TextView
+                android:id="@+id/tv_cid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="Player"
+                android:textSize="22sp" />
+
+            <ImageView
+                android:id="@+id/iv_settings"
+                android:layout_width="38dp"
+                android:layout_height="38dp"
+                android:layout_alignParentRight="true"
+                android:padding="5dp"
+                android:src="@drawable/icon_settings" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_video"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp">
+
+            <TextView
+                android:id="@+id/tv_bitRate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="10dp"
+                android:textColor="@android:color/white"
+                android:textSize="14sp"
+                android:visibility="gone" />
+
+            <ViewSwitcher
+                android:id="@+id/vs_state_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true">
+
+                <ImageView
+                    android:id="@+id/iv_play"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/btn_play" />
+
+                <ProgressBar
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </ViewSwitcher>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <ToggleButton
+                android:id="@+id/tb_voice"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_centerVertical="true"
+                android:background="@drawable/voice_selecter"
+                android:button="@null"
+                android:textOff=""
+                android:textOn="" />
+
+            <ToggleButton
+                android:id="@+id/tb_speak"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/talk_selecter"
+                android:button="@null"
+                android:textOff=""
+                android:textOn="" />
+
+            <ImageView
+                android:id="@+id/iv_screenshot"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="8dp"
+                android:src="@drawable/icon_takepic" />
+
+            <ToggleButton
+                android:id="@+id/tb_video"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:layout_marginStart="8dp"
+                android:button="@null"
+                android:checked="true"
+                android:enabled="false"
+                android:textAllCaps="false"
+                android:textOff="Live"
+                android:textOn="History"
+                android:textSize="14sp" />
+
+            <Button
+                android:id="@+id/btn_chat"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:layout_marginStart="8dp"
+                android:text="SendMsg"
+                android:textAllCaps="false"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+
+        <ListView
+            android:id="@+id/lv_history_list"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginTop="4dp" />
+
+    </LinearLayout>
+
+</layout>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="8dp">
+
+        <TextView
+            android:id="@+id/tv_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp" />
+
+
+        <TextView
+            android:id="@+id/t_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:visibility="gone" />
+
+
+        <LinearLayout
+            android:id="@+id/ll_pic_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/iv_msg_pic_1"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_margin="8dp" />
+
+            <ImageView
+                android:id="@+id/iv_msg_pic_2"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_margin="8dp" />
+
+            <ImageView
+                android:id="@+id/iv_msg_pic_3"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_margin="8dp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="#c0c0c0" />
+
+    </LinearLayout>
+</layout>

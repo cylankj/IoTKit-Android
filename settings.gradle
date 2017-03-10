@@ -1,0 +1,8 @@
+include ':app'
+Properties properties = new Properties()
+File propertyFile = new File(rootDir.getAbsolutePath() + "/local.properties")
+properties.load(propertyFile.newDataInputStream())
+String oem = properties.getProperty('oem')
+if (oem.equals("cylan")) {
+    include ':JFGLibrary'
+}

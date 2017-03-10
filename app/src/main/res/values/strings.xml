@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">JFGSDK</string>
+    <string name="click_back_again_exit">Press it again,exit the %s</string>
+</resources>
