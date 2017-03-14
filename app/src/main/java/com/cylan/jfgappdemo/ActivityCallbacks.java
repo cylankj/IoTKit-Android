@@ -28,7 +28,7 @@ public class ActivityCallbacks implements Application.ActivityLifecycleCallbacks
         count++;
         SLog.d("count: " + count);
         if (JfgAppCmd.getInstance() != null) {
-            JfgAppCmd.getInstance().reportEnvChange(JfgEnum.ENV_ONTOP);
+            JfgAppCmd.getInstance().reportEnvChange(JfgEnum.ENVENT_TYPE.ENV_ONTOP);
         }
     }
 
@@ -48,7 +48,7 @@ public class ActivityCallbacks implements Application.ActivityLifecycleCallbacks
         SLog.d("count: " + count);
         if (count == 0) {
             if (JfgAppCmd.getInstance() != null) {
-                JfgAppCmd.getInstance().reportEnvChange(JfgEnum.ENV_ONBACK);
+                JfgAppCmd.getInstance().reportEnvChange(JfgEnum.ENVENT_TYPE.ENV_ONBACK);
             }
         }
     }

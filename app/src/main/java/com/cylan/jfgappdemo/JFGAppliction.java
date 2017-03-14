@@ -2,6 +2,8 @@ package com.cylan.jfgappdemo;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.os.Environment;
 
 import com.cylan.jfgapp.jni.JfgAppCmd;
@@ -43,12 +45,17 @@ public class JFGAppliction extends Application {
      */
     public static String account;
 
+    public Context ctx;
+
     @Override
     public void onCreate() {
         super.onCreate();
         cb = new AppDemoCallBack();
+        ctx = this;
+
         // 不再放在主线程中调用。
         new Thread(new Runnable() {
+
             @Override
             public void run() {
                 try {
@@ -61,7 +68,12 @@ public class JFGAppliction extends Application {
                    JfgAppCmd cmd = JfgAppCmd.getInstance();
                     cmd.setCallBack(cb);
                     // vid , vkey ,serveraddress
-                    cmd.initNativeParam("0001","Z5SYDbLV44zfFGRdAgFQhH62fAnIqf3G","yun.jfgou.com:443");
+                    ApplicationInfo info = ctx.getPackageManager().
+                            getApplicationInfo(ctx.getPackageName(),PackageManager.GET_META_DATA);
+                    String vid = info.metaData.getString("vid");
+                    String vkey = info.metaData.getString("vkey");
+                    String serverAddress = info.metaData.getString("ServerAddress");
+                    cmd.initNativeParam(vid,vkey,serverAddress);
                     //log file path .日志文件的存放路径。
                     cmd.enableLog(true, file.getAbsolutePath());
 

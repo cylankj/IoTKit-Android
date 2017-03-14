@@ -104,7 +104,7 @@ public class RegisterFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 String account = binding.etUserName.getText().toString().trim();
-                JfgAppCmd.getInstance().sendCheckCode(account, JfgEnum.JFG_SMS_REGISTER);
+                JfgAppCmd.getInstance().sendCheckCode(account, JfgEnum.LANGUAGE_TYPE.ZH,JfgEnum.SMS_TYPE.JFG_SMS_REGISTER);
                 timer.start();
                 showOrHideView(true);
                 binding.tvGetCode.setEnabled(false);
@@ -156,7 +156,7 @@ public class RegisterFragment extends Fragment {
             SLog.i("verify sms code result : " + result.code);
             try {
                 JfgAppCmd.getInstance().
-                        register(account, pwd, JfgEvent.REGISTER_TYPE_PHONE, token);
+                        register(JfgEnum.LANGUAGE_TYPE.ZH,account, pwd, JfgEvent.REGISTER_TYPE_PHONE, token);
             } catch (JfgException e) {
                 e.printStackTrace();
             }

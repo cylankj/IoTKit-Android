@@ -270,7 +270,7 @@ public class PlayFragment extends BaseFragment {
                 if (!playing) return;
                 enableMic = isChecked;
                 SLog.i("mic:" + enableMic + " , voice:" + enableVoice);
-                JfgAppCmd.getInstance().setAudio(true, enableVoice, enableMic); // local
+                JfgAppCmd.getInstance().setAudio(true, enableMic, enableVoice); // local
             }
         });
 
@@ -280,7 +280,7 @@ public class PlayFragment extends BaseFragment {
                 if (!playing) return;
                 enableVoice = isChecked;
                 SLog.i("mic:" + enableMic + " , voice:" + enableVoice);
-                JfgAppCmd.getInstance().setAudio(true, enableVoice, enableMic); // local
+                JfgAppCmd.getInstance().setAudio(true, enableMic, enableVoice); // local
             }
         });
 

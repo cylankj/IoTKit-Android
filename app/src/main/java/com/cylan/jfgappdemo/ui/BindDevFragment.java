@@ -176,7 +176,7 @@ public class BindDevFragment extends BaseFragment {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            if (pingAck.net != 0) {
+            if (pingAck.net != 0 && pingAck.net!=1) {
                 // this devices has mobile network. 3G or 4G
                 bean.devNetType = pingAck.net;
             }

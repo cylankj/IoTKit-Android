@@ -84,9 +84,9 @@ public class LoginFragment extends BaseFragment {
                 Toast.makeText(getContext(), "login: " + userName, Toast.LENGTH_SHORT).show();
                 SLog.i("name:%s,pwd:%s", userName, pwd);
                 try {
-                    SLog.i("login ret:" + JfgAppCmd.getInstance().login(userName, pwd));
+                    SLog.i("login ret:" + JfgAppCmd.getInstance().login(JfgEnum.LANGUAGE_TYPE.ZH,userName, pwd));
 //                     loginType 为JfgEnum.LOGIN_TYPE.ROBOT 就是萝卜头用户自定义的账号
-//                    JfgAppCmd.getInstance().openLogin("Tj6R8cE0RDXJN1yO+jA9ug==", "WGo77YkwRj6sLTNwDQLjiA", JfgEnum.LOGIN_TYPE.ROBOT);
+//                    JfgAppCmd.getInstance().openLogin(JfgEnum.LANGUAGE_TYPE.ZH,"Tj6R8cE0RDXJN1yO+jA9ug==", "WGo77YkwRj6sLTNwDQLjiA", JfgEnum.LOGIN_TYPE.ROBOT);
                 } catch (JfgException e) {
                     e.printStackTrace();
                 }
