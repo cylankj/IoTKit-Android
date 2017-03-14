@@ -267,22 +267,10 @@ public class DevListFragment extends BaseFragment {
     @Subscribe()
     public void onRobotoSyncData(JfgEvent.RobotoSyncData data) throws IOException {
         SLog.i("sync data from dev %s, identity: %s ", data.fromDev, data.identity);
-        int index = adapter.getPositionBySn(data.identity);
-        if (index == -1) return;
-        JFGDevice dev = adapter.getDevice()[index];
         if (data.list != null && data.list.size() > 0) {
             for (JFGDPMsg msg : data.list) {
-                SLog.w("sync dpId:" + msg.id);
-                if (msg.id != 201) continue;  // 此处判断网络类型。
-                IntAndString values = JfgMsgPackUtils.unpack(msg.packValue, IntAndString.class);
-                SLog.i("sync int Value:" + values.intValue + " , sync String Value:" + values.strValue);
-                // baseValue
-                if (dev.base == null) {
-                    dev.base = new JFGDevBaseValue(); // 判断base 是否为空。
-                }
-                dev.base.netType = values.intValue;
-                dev.base.netName = values.strValue;
-                adapter.notifyItemChanged(index);
+                // you must unpack msg.packValue
+                SLog.w("sync dpId:" + msg.id+" ,data: "+new String(msg.packValue));
             }
         }
     }
