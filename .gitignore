@@ -9,3 +9,17 @@
 /ignore.xml
 /JFGLibrary/
 /local.properties
+/colors.scheme.xml
+/debugger.xml
+/gradle.run.settings.xml
+/gradle.settings.xml
+/ide.general.xml
+/IntelliLang.xml
+/ui.lnf.xml
+/web-browsers.xml
+/_windows/
+/colors/
+/inspection/
+/gradle/
+/gradlew
+/gradlew.bat

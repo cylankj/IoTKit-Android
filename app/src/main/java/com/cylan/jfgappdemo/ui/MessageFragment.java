@@ -129,7 +129,7 @@ public class MessageFragment extends BaseFragment {
             if ((info.files >> i & 0x1) == 1) {
                 String url ;
                 if (lowVersion){
-                    url = String.format("/%s/%s_d.jpg",device.uuid,info.time,(i+1));
+                    url = String.format("/%s/%s_%d.jpg",device.uuid,info.time,(i+1));
                 }else {
                     url = String.format("/cid/%s/%s/%s_%d.jpg",device.vid,device.uuid,info.time,(i+1));
                 }
