@@ -9,6 +9,12 @@
 
 ###更新说明
 
+#### 3.0.180
+  1. 添加双鱼眼视图。
+  2. 为优化JNI执行效率，一些接口使用long数组代替ArrayList接口。
+  3. 添加Cylan专用数据接口、socke、player。
+  4. 绑定设备接口，添加参数。
+
 #### 3.0.179
   1. setAudio(local,mic,speaker);
   2. 兼容多语言版本，一些接口添加language参数。

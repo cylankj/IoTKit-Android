@@ -1,7 +1,6 @@
 package com.cylan.jfgappdemo.ui;
 
 import android.app.Activity;
-import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.databinding.DataBindingUtil;
@@ -12,18 +11,17 @@ import android.widget.CompoundButton;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
+import com.cylan.entity.JfgEvent;
 import com.cylan.entity.jniCall.JFGDevice;
 import com.cylan.entity.jniCall.JFGMsgVideoDisconn;
 import com.cylan.entity.jniCall.JFGMsgVideoResolution;
 import com.cylan.entity.jniCall.JFGMsgVideoRtcp;
-import com.cylan.entity.jniCall.JFGVideoRect;
 import com.cylan.ex.JfgException;
 import com.cylan.jfgapp.jni.JfgAppCmd;
-import com.cylan.entity.JfgEvent;
 import com.cylan.jfgappdemo.R;
 import com.cylan.jfgappdemo.databinding.ActivityVrPlayBinding;
 import com.cylan.panorama.CameraParam;
-import com.cylan.panorama.PanoramicView;
+import com.cylan.panorama.Panoramic360View;
 import com.cylan.utils.JfgNetUtils;
 import com.cylan.utils.JfgUtils;
 import com.superlog.SLog;
@@ -41,7 +39,8 @@ public class VRPlayActivity extends Activity {
     /**
      * The Video view.
      */
-    PanoramicView panoramicView;
+    Panoramic360View panoramicView;
+//    Panoramic360View
     JFGDevice device;
 
     boolean isPlaying;
@@ -57,7 +56,7 @@ public class VRPlayActivity extends Activity {
         FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) binding.rlVideo.getLayoutParams();
         params.height = Resources.getSystem().getDisplayMetrics().widthPixels;
         binding.rlVideo.setLayoutParams(params);
-        panoramicView = new PanoramicView(this);
+        panoramicView = new Panoramic360View(this);
         panoramicView.configV360(CameraParam.getTopPreset());
         SLog.i("create videView.");
         binding.rlVideo.addView(panoramicView, 0);
@@ -162,9 +161,9 @@ public class VRPlayActivity extends Activity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    panoramicView.setMountMode(PanoramicView.MountMode.TOP);
+                    panoramicView.setMountMode(Panoramic360View.MountMode.TOP);
                 } else {
-                    panoramicView.setMountMode(PanoramicView.MountMode.WALL);
+                    panoramicView.setMountMode(Panoramic360View.MountMode.WALL);
                 }
                 reset();
             }
@@ -172,19 +171,19 @@ public class VRPlayActivity extends Activity {
         binding.cbVrModel.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
-                panoramicView.enableVRMode(isChecked);
-                setRequestedOrientation(isChecked ? ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE : ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-                panoramicView.detectOrientationChange();
-                if (isChecked) {
-                    binding.cbGyro.setChecked(isChecked);
-                }
+//
+//                panoramicView.enableVRMode(isChecked);
+//                setRequestedOrientation(isChecked ? ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE : ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+//                panoramicView.detectOrientationChange();
+//                if (isChecked) {
+//                    binding.cbGyro.setChecked(isChecked);
+//                }
             }
         });
         binding.cbGyro.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                panoramicView.enableGyro(isChecked);
+//                panoramicView.enableGyro(isChecked);
             }
         });
 

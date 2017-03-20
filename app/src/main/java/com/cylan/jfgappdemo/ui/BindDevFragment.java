@@ -101,7 +101,14 @@ public class BindDevFragment extends BaseFragment {
     public void onStart() {
         super.onStart();
         cmd = JfgAppUdpCmd.getInstance(getContext());
+//        doTest();
     }
+
+    private void doTest(){
+        new JFGSocketImpl();
+    }
+
+
 
     @Override
     public void onDestroy() {
@@ -176,7 +183,7 @@ public class BindDevFragment extends BaseFragment {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            if (pingAck.net != 0 && pingAck.net!=1) {
+            if (pingAck.net != 0 && pingAck.net != 1) {
                 // this devices has mobile network. 3G or 4G
                 bean.devNetType = pingAck.net;
             }

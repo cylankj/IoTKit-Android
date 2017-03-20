@@ -156,11 +156,6 @@ public class AppDemoCallBack implements AppCallBack {
     public void OnlineStatus(boolean online) {
         SLog.d("" + online);
         EventBus.getDefault().post(new JfgEvent.OnLineState(online));
-        try {
-            JfgAppCmd.getInstance().getVideoShareUrl("","",1);
-        } catch (JfgException e) {
-            e.printStackTrace();
-        }
     }
 
 
@@ -282,5 +277,10 @@ public class AppDemoCallBack implements AppCallBack {
     @Override
     public void OnGetVideoShareUrl(String url) {
         SLog.i("OnGetVideoShareUrl: url = [" + url + "]");
+    }
+
+    @Override
+    public void OnForwardData(byte[] data) {
+
     }
 }

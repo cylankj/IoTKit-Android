@@ -170,7 +170,6 @@ public class DevListFragment extends BaseFragment {
         adapter.notifyDataSetChanged();
         // 开始查dataPoint;
         for (JFGDevice dev : devs) {
-            SLog.i(dev.vid);
             getDataPoint(dev.uuid);
         }
     }
@@ -296,7 +295,7 @@ public class DevListFragment extends BaseFragment {
         BindDevBean bean = JFGAppliction.bindBean;
         SLog.w("bean.BindCode:" + bean.bindCode);
         try {
-            JfgAppCmd.getInstance().bindDevice(bean.cid, bean.bindCode); // send bind msg
+            JfgAppCmd.getInstance().bindDevice(bean.cid, bean.bindCode,bean.mac,0); // send bind msg
         } catch (JfgException e) {
             e.printStackTrace();
         }
@@ -309,5 +308,6 @@ public class DevListFragment extends BaseFragment {
     public void onUpdateAccount(JFGAccount ja) {
         SLog.i(ja.getAccount() + ", photo url :" + ja.getPhotoUrl());
     }
+
 
 }
