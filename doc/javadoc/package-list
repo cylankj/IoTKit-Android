@@ -5,6 +5,8 @@ com.cylan.ex
 com.cylan.jfgapp.interfases
 com.cylan.jfgapp.jni
 com.cylan.panorama
+com.cylan.player
+com.cylan.socket
 com.cylan.udpMsgPack
 com.cylan.utils
 org.webrtc.interfaces
