@@ -9,6 +9,9 @@
 
 ###更新说明
 
+#### 3.0.190
+  1. OnRobotDelDataRsp add uuid.
+
 #### 3.0.189
   1. 添加双鱼眼视图。
   2. 为优化JNI执行效率，一些接口使用long数组代替ArrayList接口。
