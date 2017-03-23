@@ -283,4 +283,9 @@ public class AppDemoCallBack implements AppCallBack {
     public void OnForwardData(byte[] data) {
 
     }
+
+    @Override
+    public void OnMultiShareDevices(int ret, String device, String account) {
+
+    }
 }

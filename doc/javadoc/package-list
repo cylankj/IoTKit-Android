@@ -4,6 +4,7 @@ com.cylan.entity.jniCall
 com.cylan.ex
 com.cylan.jfgapp.interfases
 com.cylan.jfgapp.jni
+com.cylan.jfgdev
 com.cylan.panorama
 com.cylan.player
 com.cylan.socket

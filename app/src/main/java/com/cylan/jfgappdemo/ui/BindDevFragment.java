@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.cylan.constants.JfgConstants;
 import com.cylan.entity.JfgEvent;
+import com.cylan.jfgapp.jni.JfgAppCmd;
 import com.cylan.jfgapp.jni.JfgAppUdpCmd;
 import com.cylan.jfgappdemo.JFGAppliction;
 import com.cylan.jfgappdemo.R;
@@ -101,11 +102,12 @@ public class BindDevFragment extends BaseFragment {
     public void onStart() {
         super.onStart();
         cmd = JfgAppUdpCmd.getInstance(getContext());
-//        doTest();
+        doTest();
     }
 
     private void doTest(){
         new JFGSocketImpl();
+
     }
 
 
