@@ -136,13 +136,13 @@ public class AppDemoCallBack implements AppCallBack {
     }
 
     @Override
-    public void OnRobotSetDataRsp(long seq, ArrayList<JFGDPMsgRet> dataList) {
+    public void OnRobotSetDataRsp(long seq,String peer, ArrayList<JFGDPMsgRet> dataList) {
         SLog.d("");
-        EventBus.getDefault().post(new JfgEvent.RobotoSetDataRsp(seq, dataList));
+        EventBus.getDefault().post(new JfgEvent.RobotoSetDataRsp(seq,peer ,dataList));
     }
 
     @Override
-    public void OnRobotGetDataTimeout(long seq) {
+    public void OnRobotGetDataTimeout(long seq,String peer) {
         SLog.d("time out:" + seq);
     }
 
@@ -274,6 +274,12 @@ public class AppDemoCallBack implements AppCallBack {
         SLog.i("Bind dev: " + ret + " , cid: " + cid);
     }
 
+
+    @Override
+    public void OnUnBindDevRsp(int ret, String cid) {
+        SLog.i("UnBind dev: " + ret + " , cid: " + cid);
+    }
+
     @Override
     public void OnGetVideoShareUrl(String url) {
         SLog.i("OnGetVideoShareUrl: url = [" + url + "]");
@@ -286,6 +292,11 @@ public class AppDemoCallBack implements AppCallBack {
 
     @Override
     public void OnMultiShareDevices(int ret, String device, String account) {
+
+    }
+
+    @Override
+    public void OnCheckClientVersion(int ret, String url, int coerceUpgrade) {
 
     }
 }

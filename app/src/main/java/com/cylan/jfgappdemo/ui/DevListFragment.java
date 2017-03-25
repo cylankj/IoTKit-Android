@@ -39,6 +39,7 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -251,7 +252,7 @@ public class DevListFragment extends BaseFragment {
                 // 发送时区。
                 break;
             case JfgEvent.ResultEvent.JFG_RESULT_UNBINDDEV:
-                SLog.i("unbind dev resutl: " + result.code);
+                SLog.i("unbind dev result: " + result.code);
                 Toast.makeText(getContext(), "Ubind dev result:" + result.code, Toast.LENGTH_SHORT).show();
                 if (result.code != 0) {
                     return;
@@ -266,7 +267,7 @@ public class DevListFragment extends BaseFragment {
 
     @Subscribe()
     public void onRobotoSyncData(JfgEvent.RobotoSyncData data) throws IOException {
-        SLog.i("sync data from dev %s, identity: %s ", data.fromDev, data.identity);
+        SLog.i("sync data from  %s, identity: %s ", data.fromDev?"device":"server", data.identity);
         if (data.list != null && data.list.size() > 0) {
             for (JFGDPMsg msg : data.list) {
                 // you must unpack msg.packValue
