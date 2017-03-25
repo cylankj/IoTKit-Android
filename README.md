@@ -9,6 +9,13 @@
 
 ###更新说明
 
+#### 3.0.192
+  1. OnRobotGetDataTimeout add uuid.
+  2. OnRobotSetDataRsp add uuid.
+  3. add OnUnbindDevRsp callback
+  4. add CheckClientVersion api and callback.
+  5. can bind 2.x and 3.x devices
+
 #### 3.0.191
   1. OnRobotDelDataRsp add uuid.
   2. 添加多分享设备接口。

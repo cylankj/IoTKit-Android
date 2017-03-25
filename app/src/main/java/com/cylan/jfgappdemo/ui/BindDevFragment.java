@@ -102,7 +102,7 @@ public class BindDevFragment extends BaseFragment {
     public void onStart() {
         super.onStart();
         cmd = JfgAppUdpCmd.getInstance(getContext());
-        doTest();
+//        doTest();
     }
 
     private void doTest(){
