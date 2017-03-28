@@ -35,7 +35,7 @@
         <!--change server address -->
         <meta-data
             android:name="ServerAddress"
-            android:value="yf.jfgou.com:443" />
+            android:value="yun.jfgou.com:443" />
 
         <activity android:name=".ui.DemoActivity">
             <intent-filter>

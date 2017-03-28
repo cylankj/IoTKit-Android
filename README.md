@@ -9,6 +9,11 @@
 
 ###更新说明
 
+#### 3.0.193
+  1. 兼容2.x版本呼叫callid为0的问题。
+  2. 修复device.regionType有时为错乱数据的bug
+  3. 标记绑定和解除绑定的OnResult事件为过时事件，有相应的接口做为回调。
+
 #### 3.0.192
   1. OnRobotGetDataTimeout add uuid.
   2. OnRobotSetDataRsp add uuid.
