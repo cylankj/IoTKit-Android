@@ -22,6 +22,7 @@ import com.cylan.entity.jniCall.JFGMsgHttpResult;
 import com.cylan.entity.jniCall.JFGResult;
 import com.cylan.entity.jniCall.RobotoGetDataRsp;
 import com.cylan.ex.JfgException;
+import com.cylan.jfgapp.jni.JfgAppCallBack;
 import com.cylan.jfgapp.jni.JfgAppCmd;
 import com.cylan.jfgappdemo.JFGAppliction;
 import com.cylan.entity.JfgEvent;
@@ -151,9 +152,9 @@ public class DevListFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 // show add dev fragment
-                getFragmentManager().beginTransaction()
-                        .hide(DevListFragment.this).addToBackStack("list")
-                        .add(R.id.fl_container, BindDevFragment.getInstance()).commit();
+           getFragmentManager().beginTransaction()
+                   .hide(DevListFragment.this).addToBackStack("list")
+                   .add(R.id.fl_container, BindDevFragment.getInstance()).commit();
             }
         });
     }
@@ -170,10 +171,29 @@ public class DevListFragment extends BaseFragment {
         SLog.i("update devs");
         adapter.setDevice(devs);
         adapter.notifyDataSetChanged();
+//        getMultiDP(devs);
         // 开始查dataPoint;
         for (JFGDevice dev : devs) {
             getDataPoint(dev.uuid);
         }
+    }
+
+    public void getMultiDP(JFGDevice[] devs){
+        HashMap<String,JFGDPMsg[]> map = new HashMap<>();
+        HashMap<String,long[]> query = new HashMap<>();
+        for (JFGDevice d:devs){
+            JFGDPMsg[] jd = new JFGDPMsg[]{new JFGDPMsg(201,0),new JFGDPMsg(206,0)};
+            map.put(d.uuid,jd);
+            long[] qdp = new long[]{505,512};
+            query.put(d.uuid,qdp);
+        }
+        try {
+            JfgAppCmd.getInstance().robotGetMultiData(map,2,false,0);
+            JfgAppCmd.getInstance().robotCountMultiData(query,false,0);
+        } catch (JfgException e) {
+            e.printStackTrace();
+        }
+
     }
 
     /**

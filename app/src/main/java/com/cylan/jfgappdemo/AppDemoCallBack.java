@@ -7,6 +7,7 @@ import com.cylan.entity.jniCall.JFGAccount;
 import com.cylan.entity.jniCall.JFGDPMsg;
 import com.cylan.entity.jniCall.JFGDPMsgCount;
 import com.cylan.entity.jniCall.JFGDPMsgRet;
+import com.cylan.entity.jniCall.JFGDPValue;
 import com.cylan.entity.jniCall.JFGDevice;
 import com.cylan.entity.jniCall.JFGDoorBellCaller;
 import com.cylan.entity.jniCall.JFGFeedbackInfo;
@@ -32,6 +33,9 @@ import com.superlog.SLog;
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  * 所有JFGSDK的回调都在此类中接收
@@ -136,13 +140,13 @@ public class AppDemoCallBack implements AppCallBack {
     }
 
     @Override
-    public void OnRobotSetDataRsp(long seq,String peer, ArrayList<JFGDPMsgRet> dataList) {
+    public void OnRobotSetDataRsp(long seq, String peer, ArrayList<JFGDPMsgRet> dataList) {
         SLog.d("");
-        EventBus.getDefault().post(new JfgEvent.RobotoSetDataRsp(seq,peer ,dataList));
+        EventBus.getDefault().post(new JfgEvent.RobotoSetDataRsp(seq, peer, dataList));
     }
 
     @Override
-    public void OnRobotGetDataTimeout(long seq,String peer) {
+    public void OnRobotGetDataTimeout(long seq, String peer) {
         SLog.d("time out:" + seq);
     }
 
@@ -161,7 +165,7 @@ public class AppDemoCallBack implements AppCallBack {
 
     @Override
     public void OnDoorBellCall(JFGDoorBellCaller caller) {
-        SLog.d("call form: " + caller.cid );
+        SLog.d("call form: " + caller.cid);
         EventBus.getDefault().post(caller);
     }
 
@@ -298,5 +302,35 @@ public class AppDemoCallBack implements AppCallBack {
     @Override
     public void OnCheckClientVersion(int ret, String url, int coerceUpgrade) {
 
+    }
+
+    @Override
+    public void OnRobotCountMultiDataRsp(long seq, Object obj) {
+        HashMap<String, JFGDPMsgCount[]> map = (HashMap<String, JFGDPMsgCount[]>) obj;
+        if (map.isEmpty()) return;
+        Iterator<Map.Entry<String, JFGDPMsgCount[]>> it = map.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry<String, JFGDPMsgCount[]> entry = it.next();
+            JFGDPMsgCount[] dpc = entry.getValue();
+            for (JFGDPMsgCount o : dpc) {
+                SLog.i("[%s,%s]", entry.getKey(), o.toString());
+            }
+        }
+    }
+
+    @Override
+    public void OnRobotGetMultiDataRsp(long seq, Object obj) {
+        HashMap<String, HashMap<Long, JFGDPValue[]>> map = (HashMap<String, HashMap<Long, JFGDPValue[]>>) obj;
+        if (map.isEmpty()) return;
+//        Map.Entry<String,HashMap<Long,JFGDPValue[]>> entry = map.entrySet();
+        for (Map.Entry<String, HashMap<Long, JFGDPValue[]>> entry : map.entrySet()) {
+            String key = entry.getKey();
+            for (Map.Entry<Long, JFGDPValue[]> e : entry.getValue().entrySet()) {
+                Long dpid = e.getKey();
+                for (JFGDPValue v : e.getValue()) {
+                    SLog.i(key + " dpid: %d , dpv: %s",dpid , v.toString());
+                }
+            }
+        }
     }
 }
