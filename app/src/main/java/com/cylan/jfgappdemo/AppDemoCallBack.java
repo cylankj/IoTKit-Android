@@ -24,9 +24,7 @@ import com.cylan.entity.jniCall.JFGServerCfg;
 import com.cylan.entity.jniCall.JFGShareListInfo;
 import com.cylan.entity.jniCall.RobotMsg;
 import com.cylan.entity.jniCall.RobotoGetDataRsp;
-import com.cylan.ex.JfgException;
 import com.cylan.jfgapp.interfases.AppCallBack;
-import com.cylan.jfgapp.jni.JfgAppCmd;
 import com.cylan.utils.JfgUtils;
 import com.superlog.SLog;
 
