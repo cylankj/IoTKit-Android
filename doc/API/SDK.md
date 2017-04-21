@@ -70,4 +70,4 @@
   [1]: http://open.robotscloud.com/
   
   
- 8.[使用`Android Studio`依赖sdkLib](./doc/API/Android-Studio依赖sdk.md)
+ 8.[使用`Android Studio`依赖sdkLib](./Android-Studio依赖sdk.md)

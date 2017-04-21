@@ -2,7 +2,7 @@
 
   此帮助文档主要介绍加菲狗Android SDK的大致逻辑。
 
-#[接入流程](doc/API/SDK.md)必看,非常重要！！！
+#[接入流程(有更新)](doc/API/SDK.md)必看,非常重要！！！
 
 ###[API目录](doc/API/SUMMARY.md)
 ---
