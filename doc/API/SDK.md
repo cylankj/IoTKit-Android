@@ -68,3 +68,6 @@
  如： 注册，登录，添加设备，查看视频等等功能。
 
   [1]: http://open.robotscloud.com/
+  
+  
+ 8.[使用`Android Studio`依赖sdkLib](./doc/API/Android-Studio依赖sdk.md)
