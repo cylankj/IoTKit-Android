@@ -331,4 +331,9 @@ public class AppDemoCallBack implements AppCallBack {
             }
         }
     }
+
+    @Override
+    public void OnGetAdPolicyRsp(int i, long l, String s, String s1) {
+
+    }
 }
