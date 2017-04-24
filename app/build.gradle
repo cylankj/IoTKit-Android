@@ -86,7 +86,7 @@ dependencies {
     compile 'com.android.support:support-v4:23.4.0'
     compile 'com.android.support:design:23.2.1'
     compile 'com.google.code.gson:gson:2.8.0'
-    // 以下两种形式均为引用库。我司可以直接引用本地库。贵司只能使用aar包。
-    compile 'com.cylan.iot.sdk:sdkLib:212'
+    //依赖方式改变.SDK_VERSION:最新sdk版本号.
+    compile 'com.cylan.iot.sdk:sdkLib:SDK_VERSION'
 
 }
