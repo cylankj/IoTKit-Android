@@ -1,12 +1,24 @@
 package com.cylan.jfgappdemo.ui;
 
+import android.Manifest;
+import android.app.Activity;
+import android.content.ComponentName;
+import android.content.Intent;
+import android.content.ServiceConnection;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
+import android.media.projection.MediaProjection;
+import android.media.projection.MediaProjectionManager;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.IBinder;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.SurfaceView;
@@ -28,6 +40,7 @@ import com.cylan.ex.JfgException;
 import com.cylan.jfgapp.interfases.CallBack;
 import com.cylan.jfgapp.jni.JfgAppCmd;
 import com.cylan.jfgappdemo.R;
+import com.cylan.jfgappdemo.RecordService;
 import com.cylan.jfgappdemo.databinding.FragmentPlayBinding;
 import com.cylan.utils.JfgNetUtils;
 import com.cylan.utils.JfgUtils;
@@ -42,6 +55,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
+
+import static android.content.Context.BIND_AUTO_CREATE;
+import static android.content.Context.MEDIA_PROJECTION_SERVICE;
 
 /**
  * Created by lxh on 16-7-28.
@@ -94,6 +110,14 @@ public class PlayFragment extends BaseFragment {
      */
     boolean isReady;
 
+    private MediaProjectionManager projectionManager;
+    private MediaProjection mediaProjection;
+    private RecordService recordService;
+
+    private static final int RECORD_REQUEST_CODE  = 101;
+    private static final int STORAGE_REQUEST_CODE = 102;
+    private static final int AUDIO_REQUEST_CODE   = 103;
+
 
     /**
      * Gets instance.
@@ -120,6 +144,7 @@ public class PlayFragment extends BaseFragment {
         super.onViewCreated(view, savedInstanceState);
         // 改变布局
         LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) binding.rlVideo.getLayoutParams();
+        projectionManager = (MediaProjectionManager) getActivity().getSystemService(MEDIA_PROJECTION_SERVICE);
         int w = Resources.getSystem().getDisplayMetrics().widthPixels;
         params.height = (int) (w * 0.7f); // 动态设置高度
         binding.rlVideo.setLayoutParams(params);
@@ -137,6 +162,22 @@ public class PlayFragment extends BaseFragment {
         } catch (JfgException e) {
             e.printStackTrace();
         }
+
+
+        if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(getActivity(),
+                    new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE}, STORAGE_REQUEST_CODE);
+        }
+
+        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.RECORD_AUDIO)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(getActivity(),
+                    new String[] {Manifest.permission.RECORD_AUDIO}, AUDIO_REQUEST_CODE);
+        }
+
+        Intent intent = new Intent(getContext(), RecordService.class);
+        getActivity().bindService(intent, connection, BIND_AUTO_CREATE);
     }
 
     @Override
@@ -187,6 +228,22 @@ public class PlayFragment extends BaseFragment {
      * Add linstener.
      */
     private void addLinstener() {
+        binding.btnSr.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (recordService == null) {
+                    return;
+                }
+                if (recordService.isRunning()) {
+                    recordService.stopRecord();
+                    binding.btnSr.setText("startSR");
+                } else {
+                    Intent captureIntent = projectionManager.createScreenCaptureIntent();
+                    startActivityForResult(captureIntent, RECORD_REQUEST_CODE);
+                }
+            }
+        });
+
         binding.btnChat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -546,5 +603,44 @@ public class PlayFragment extends BaseFragment {
             }
         });
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == RECORD_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            mediaProjection = projectionManager.getMediaProjection(resultCode, data);
+            recordService.setMediaProject(mediaProjection);
+            recordService.startRecord();
+            binding.btnSr.setText("stopSR");
+        }
+    }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == STORAGE_REQUEST_CODE || requestCode == AUDIO_REQUEST_CODE) {
+            if (grantResults[0] != PackageManager.PERMISSION_GRANTED) {
+//                finish();
+                showToast("no permissions");
+            }
+        }
+    }
+
+    private ServiceConnection connection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName className, IBinder service) {
+            DisplayMetrics metrics = new DisplayMetrics();
+            getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
+            RecordService.RecordBinder binder = (RecordService.RecordBinder) service;
+            recordService = binder.getRecordService();
+            recordService.setConfig(metrics.widthPixels, metrics.heightPixels, metrics.densityDpi);
+            binding.btnSr.setEnabled(true);
+            binding.btnSr.setText(recordService.isRunning() ?"stopSR": "startSR");
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName arg0) {}
+    };
 
 }

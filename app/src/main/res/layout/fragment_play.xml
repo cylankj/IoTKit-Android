@@ -94,7 +94,7 @@
                 android:id="@+id/tb_speak"
                 android:layout_width="36dp"
                 android:layout_height="36dp"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="2dp"
                 android:background="@drawable/talk_selecter"
                 android:button="@null"
                 android:textOff=""
@@ -105,14 +105,14 @@
                 android:layout_width="36dp"
                 android:layout_height="36dp"
                 android:layout_centerVertical="true"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="2dp"
                 android:src="@drawable/icon_takepic" />
 
             <ToggleButton
                 android:id="@+id/tb_video"
                 android:layout_width="wrap_content"
                 android:layout_height="36dp"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="2dp"
                 android:button="@null"
                 android:checked="true"
                 android:enabled="false"
@@ -125,10 +125,16 @@
                 android:id="@+id/btn_chat"
                 android:layout_width="wrap_content"
                 android:layout_height="36dp"
-                android:layout_marginStart="8dp"
-                android:text="SendMsg"
+                android:layout_marginStart="2dp"
+                android:text="Send"
                 android:textAllCaps="false"
                 android:textSize="14sp" />
+            <Button
+                android:id="@+id/btn_sr"
+                android:textAllCaps="false"
+                android:text="sr"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"/>
         </LinearLayout>
 
 
