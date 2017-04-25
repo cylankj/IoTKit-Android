@@ -162,27 +162,14 @@ public class PlayFragment extends BaseFragment {
         } catch (JfgException e) {
             e.printStackTrace();
         }
-
-
-        if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(getActivity(),
-                    new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE}, STORAGE_REQUEST_CODE);
-        }
-
-        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.RECORD_AUDIO)
-                != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(getActivity(),
-                    new String[] {Manifest.permission.RECORD_AUDIO}, AUDIO_REQUEST_CODE);
-        }
-
-        Intent intent = new Intent(getContext(), RecordService.class);
-        getActivity().bindService(intent, connection, BIND_AUTO_CREATE);
     }
 
     @Override
     public void onStart() {
         super.onStart();
+        SLog.i("onStart");
+        Intent intent = new Intent(getContext(), RecordService.class);
+        getContext().bindService(intent, connection, BIND_AUTO_CREATE);
     }
 
     @Override
@@ -209,6 +196,7 @@ public class PlayFragment extends BaseFragment {
     @Override
     public void onStop() {
         super.onStop();
+        getContext().unbindService(connection);
         if (playing) {
             try {
                 stopPlay();
@@ -232,6 +220,7 @@ public class PlayFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 if (recordService == null) {
+                    showToast("recordService is null");
                     return;
                 }
                 if (recordService.isRunning()) {
@@ -630,11 +619,12 @@ public class PlayFragment extends BaseFragment {
     private ServiceConnection connection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName className, IBinder service) {
+            SLog.i("--------------------------------------");
             DisplayMetrics metrics = new DisplayMetrics();
             getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
             RecordService.RecordBinder binder = (RecordService.RecordBinder) service;
             recordService = binder.getRecordService();
-            recordService.setConfig(metrics.widthPixels, metrics.heightPixels, metrics.densityDpi);
+            recordService.setConfig(480,720,160);
             binding.btnSr.setEnabled(true);
             binding.btnSr.setText(recordService.isRunning() ?"stopSR": "startSR");
         }

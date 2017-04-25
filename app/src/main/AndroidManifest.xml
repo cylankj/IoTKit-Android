@@ -50,6 +50,7 @@
         <activity
             android:name=".ui.MultVideoActivity"
             android:screenOrientation="landscape" />
+        <service android:name=".RecordService"/>
     </application>
 
 </manifest>

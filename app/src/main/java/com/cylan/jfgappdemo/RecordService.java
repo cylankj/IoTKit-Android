@@ -31,17 +31,20 @@ public class RecordService extends Service {
 
   @Override
   public IBinder onBind(Intent intent) {
+    SLog.i("onBind");
     return new RecordBinder();
   }
 
   @Override
   public int onStartCommand(Intent intent, int flags, int startId) {
+    SLog.i("onStartCommand:  "+ startId);
     return START_STICKY;
   }
 
   @Override
   public void onCreate() {
     super.onCreate();
+    SLog.e("****************onCreate***********************");
     HandlerThread serviceThread = new HandlerThread("service_thread",
         android.os.Process.THREAD_PRIORITY_BACKGROUND);
     serviceThread.start();
@@ -107,7 +110,7 @@ public class RecordService extends Service {
     mediaRecorder.setVideoEncoder(MediaRecorder.VideoEncoder.H264);
     mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
     mediaRecorder.setVideoEncodingBitRate(5 * 1024 * 1024);
-    mediaRecorder.setVideoFrameRate(30);
+    mediaRecorder.setVideoFrameRate(15);
     try {
       mediaRecorder.prepare();
     } catch (IOException e) {

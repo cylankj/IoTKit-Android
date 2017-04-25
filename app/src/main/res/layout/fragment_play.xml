@@ -110,7 +110,7 @@
 
             <ToggleButton
                 android:id="@+id/tb_video"
-                android:layout_width="wrap_content"
+                android:layout_width="72dp"
                 android:layout_height="36dp"
                 android:layout_marginStart="2dp"
                 android:button="@null"
@@ -123,7 +123,7 @@
 
             <Button
                 android:id="@+id/btn_chat"
-                android:layout_width="wrap_content"
+                android:layout_width="48dp"
                 android:layout_height="36dp"
                 android:layout_marginStart="2dp"
                 android:text="Send"
@@ -132,8 +132,9 @@
             <Button
                 android:id="@+id/btn_sr"
                 android:textAllCaps="false"
+                android:layout_marginStart="2dp"
                 android:text="sr"
-                android:layout_width="wrap_content"
+                android:layout_width="48dp"
                 android:layout_height="36dp"/>
         </LinearLayout>
 
