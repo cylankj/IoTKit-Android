@@ -88,6 +88,6 @@ dependencies {
     compile 'com.google.code.gson:gson:2.8.0'
     //依赖方式改变.SDK_VERSION:最新sdk版本号.
     //https://bintray.com/cylan/Iot/JFGSdkLib,查看发布历史.SDK_VERSION,填写最新版本即可
-    compile 'com.cylan.iot.sdk:sdkLib:SDK_VERSION'
+    compile 'com.cylan.iot.sdk:sdkLib:+'
 
 }
