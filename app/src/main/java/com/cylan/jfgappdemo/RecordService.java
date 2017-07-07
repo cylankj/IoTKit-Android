@@ -31,7 +31,6 @@ public class RecordService extends Service {
 
   @Override
   public IBinder onBind(Intent intent) {
-    SLog.i("onBind");
     return new RecordBinder();
   }
 
@@ -44,7 +43,6 @@ public class RecordService extends Service {
   @Override
   public void onCreate() {
     super.onCreate();
-    SLog.e("****************onCreate***********************");
     HandlerThread serviceThread = new HandlerThread("service_thread",
         android.os.Process.THREAD_PRIORITY_BACKGROUND);
     serviceThread.start();
@@ -139,7 +137,7 @@ public class RecordService extends Service {
 
   public class RecordBinder extends Binder {
     public RecordService getRecordService() {
-      SLog.e("getRecordService");
+      SLog.d("getRecordService");
       return RecordService.this;
     }
   }

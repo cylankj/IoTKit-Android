@@ -3,6 +3,7 @@ package com.cylan.jfgappdemo;
 import android.os.SystemClock;
 
 import com.cylan.entity.JfgEvent;
+import com.cylan.entity.jniCall.DevUpgradeInfo;
 import com.cylan.entity.jniCall.JFGAccount;
 import com.cylan.entity.jniCall.JFGDPMsg;
 import com.cylan.entity.jniCall.JFGDPMsgCount;
@@ -257,7 +258,7 @@ public class AppDemoCallBack implements AppCallBack {
     }
 
     @Override
-    public void OnCheckDevVersionRsp(boolean hasNew, String url, String version, String tip, String md5) {
+    public void OnCheckDevVersionRsp(boolean hasNew, String url, String version, String tip, String md5, String cid) {
         SLog.d("");
     }
 
@@ -334,6 +335,11 @@ public class AppDemoCallBack implements AppCallBack {
 
     @Override
     public void OnGetAdPolicyRsp(int i, long l, String s, String s1) {
+
+    }
+
+    @Override
+    public void OnCheckTagDeviceVersionRsp(int ret, String cid, String tagVersion, String content, ArrayList<DevUpgradeInfo> resultList) {
 
     }
 }
