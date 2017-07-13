@@ -342,4 +342,9 @@ public class AppDemoCallBack implements AppCallBack {
     public void OnCheckTagDeviceVersionRsp(int ret, String cid, String tagVersion, String content, ArrayList<DevUpgradeInfo> resultList) {
 
     }
+
+    @Override
+    public void OnUniversalDataRsp(long seq, int mid, byte[] data) {
+
+    }
 }

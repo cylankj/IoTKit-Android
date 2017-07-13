@@ -133,7 +133,7 @@ public class MessageFragment extends BaseFragment {
                 }else {
                     url = String.format("/cid/%s/%s/%s_%d.jpg",device.vid,device.uuid,info.time,(i+1));
                 }
-                urls.add(JfgAppCmd.getInstance().getSignedCloudUrl(info.type,url,device.uuid));  // add url ;
+                urls.add(JfgAppCmd.getInstance().getSignedCloudUrl(info.type,url));  // add url ;
             }
         }
         MessageBean bean = new MessageBean();

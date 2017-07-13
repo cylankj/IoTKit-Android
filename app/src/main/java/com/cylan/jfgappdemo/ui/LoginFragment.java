@@ -67,8 +67,11 @@ public class LoginFragment extends BaseFragment {
     super.onResume();
     EventBus.getDefault().register(this);
     binding.etPwd.setText("88888888");
+//    binding.etPwd.setText("111111");
     binding.etUserName.setText("cleverdog@cylan.com.cn");
+//    binding.etUserName.setText("18576670452");
     binding.etUserName.setSelection(binding.etUserName.getText().length());
+
   }
 
   /**

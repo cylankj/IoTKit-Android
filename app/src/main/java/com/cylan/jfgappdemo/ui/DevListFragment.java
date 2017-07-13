@@ -176,6 +176,8 @@ public class DevListFragment extends BaseFragment {
         for (JFGDevice dev : devs) {
             getDataPoint(dev.uuid);
         }
+
+        JfgAppCmd.getInstance().sendUniservalDataSeq(1,new byte[]{1,2});
     }
 
     public void getMultiDP(JFGDevice[] devs){
