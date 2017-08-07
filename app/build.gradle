@@ -89,7 +89,7 @@ dependencies {
   //依赖方式改变.SDK_VERSION:最新sdk版本号.
   //https://bintray.com/cylan/Iot/JFGSdkLib,查看发布历史.SDK_VERSION,填写最新版本即可
   //compile 'com.cylan.library:iotsdk:1.0-SNAPSHOT'
-  compile project(':JFGLibrary')
+//  compile project(':JFGLibrary')
   compile 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
-
+  compile 'com.cylan.iot.sdk:iotsdk:220'
 }
