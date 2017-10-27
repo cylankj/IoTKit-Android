@@ -17,9 +17,6 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
-//        maven {
-//            url 'https://dl.bintray.com/cylan/Iot'
-//        }
         maven { url "http://yf.cylan.com.cn:82/artifactory/libs-snapshot-local" }
     }
 }

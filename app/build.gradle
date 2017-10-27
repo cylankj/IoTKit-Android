@@ -88,8 +88,8 @@ dependencies {
   compile 'com.google.code.gson:gson:2.8.0'
   compile 'com.cylan.library:iotsdk:+'
   //依赖方式改变.SDK_VERSION:最新sdk版本号.
-  //https://bintray.com/cylan/Iot/JFGSdkLib,查看发布历史.SDK_VERSION,填写最新版本即可
-//  compile(group: 'com.cylan.library', name: 'iotsdk', version: '1.0-20170818.104226-7', ext: 'aar')
-//  compile project(':JFGLibrary')
 
+  compile 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
+  compile 'com.cylan.library:iotsdk:1.0-SNAPSHOT'
+//  compile 'com.cylan.iot.sdk:iotsdk:220'
 }
