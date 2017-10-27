@@ -7,8 +7,8 @@ android {
 
   defaultConfig {
     applicationId "com.cylan.jfgappdemo"
-    minSdkVersion 21
-    targetSdkVersion 23
+    minSdkVersion 19
+    targetSdkVersion 21
     versionCode 1
     versionName "1.0"
     ndk {
@@ -86,10 +86,10 @@ dependencies {
   compile 'com.android.support:support-v4:23.4.0'
   compile 'com.android.support:design:23.2.1'
   compile 'com.google.code.gson:gson:2.8.0'
+  compile 'com.cylan.library:iotsdk:+'
   //依赖方式改变.SDK_VERSION:最新sdk版本号.
   //https://bintray.com/cylan/Iot/JFGSdkLib,查看发布历史.SDK_VERSION,填写最新版本即可
-  //compile 'com.cylan.library:iotsdk:1.0-SNAPSHOT'
-  compile project(':JFGLibrary')
-  compile 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
+//  compile(group: 'com.cylan.library', name: 'iotsdk', version: '1.0-20170818.104226-7', ext: 'aar')
+//  compile project(':JFGLibrary')
 
 }

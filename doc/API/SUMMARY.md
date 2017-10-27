@@ -16,3 +16,5 @@
 
 * [账号设置](account.md)
 
+* [消息透传](transmitMsg.md)
+
