@@ -17,7 +17,7 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
-        maven { url "http://yf.cylan.com.cn:82/artifactory/libs-snapshot-local" }
+        maven { url "http://yf.cylan.com.cn:82/artifactory/libs-release-local" }
     }
 }
 

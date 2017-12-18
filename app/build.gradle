@@ -2,94 +2,94 @@ apply plugin: 'com.android.application'
 
 android {
 
-  compileSdkVersion rootProject.ext.compileSdkVersion
-  buildToolsVersion rootProject.ext.buildToolsVersion
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
 
-  defaultConfig {
-    applicationId "com.cylan.jfgappdemo"
-    minSdkVersion 19
-    targetSdkVersion 21
-    versionCode 1
-    versionName "1.0"
-    ndk {
-      // 设置支持的SO库架构
-      abiFilters 'armeabi-v7a'//, 'x86'//, 'armeabi-v7a', 'x86_64', 'arm64-v8a'
+    defaultConfig {
+        applicationId "com.cylan.jfgappdemo"
+        minSdkVersion 19
+        targetSdkVersion 21
+        versionCode 1
+        versionName "1.0"
+        ndk {
+            // 设置支持的SO库架构
+            abiFilters 'armeabi-v7a'//, 'x86'//, 'armeabi-v7a', 'x86_64', 'arm64-v8a'
+        }
     }
-  }
 
-  signingConfigs {
-    release
-  }
+    signingConfigs {
+        release
+    }
 
-  buildTypes {
-    release {
-      minifyEnabled false
-      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-      signingConfig signingConfigs.release
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+        debug {
+            // 请注释掉以下代码。 以下为我司本地签名文件。
+            Properties properties = new Properties()
+            properties.load(project.rootProject.file('local.properties').newDataInputStream())
+            String keyPath = properties.getProperty('key.store')
+            if (keyPath != null) {
+                android.signingConfigs.debug.storeFile = file(keyPath)
+                android.signingConfigs.debug.storePassword = properties.getProperty('key.store.password')
+                android.signingConfigs.debug.keyPassword = properties.getProperty('key.alias.password')
+                android.signingConfigs.debug.keyAlias = properties.getProperty('key.alias')
+            }
+            //---------------------------------------------
+        }
     }
-    debug {
-      // 请注释掉以下代码。 以下为我司本地签名文件。
-      Properties properties = new Properties()
-      properties.load(project.rootProject.file('local.properties').newDataInputStream())
-      String keyPath = properties.getProperty('key.store')
-      if (keyPath != null) {
-        android.signingConfigs.debug.storeFile = file(keyPath)
-        android.signingConfigs.debug.storePassword = properties.getProperty('key.store.password')
-        android.signingConfigs.debug.keyPassword = properties.getProperty('key.alias.password')
-        android.signingConfigs.debug.keyAlias = properties.getProperty('key.alias')
-      }
-      //---------------------------------------------
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+            assets.srcDirs = ['assets']
+        }
     }
-  }
-  sourceSets {
-    main {
-      jniLibs.srcDirs = ['libs']
-      assets.srcDirs = ['assets']
+    dataBinding {
+        enabled = true
     }
-  }
-  dataBinding {
-    enabled = true
-  }
-  lintOptions {
-    abortOnError false
-  }
+    lintOptions {
+        abortOnError false
+    }
 
 
 }
 
-repositories {
-  flatDir {
-    dirs 'libs'
-  }
+repositories{
+    flatDir{
+        dirs 'libs'
+    }
 }
 
 if (project.hasProperty('keystoreFile') &&
-    project.hasProperty('keystorePassword') &&
-    project.hasProperty('keystoreAliasPassword')) {
-  android.signingConfigs.release.storeFile = file(keystoreFile)
-  android.signingConfigs.release.storePassword = keystorePassword
-  android.signingConfigs.release.keyPassword = keystoreAliasPassword
-  android.signingConfigs.release.keyAlias = keystoreAlias
+        project.hasProperty('keystorePassword') &&
+        project.hasProperty('keystoreAliasPassword')) {
+    android.signingConfigs.release.storeFile = file(keystoreFile)
+    android.signingConfigs.release.storePassword = keystorePassword
+    android.signingConfigs.release.keyPassword = keystoreAliasPassword
+    android.signingConfigs.release.keyAlias = keystoreAlias
 } else {
-  android.buildTypes.release.signingConfig = null
+    android.buildTypes.release.signingConfig = null
 }
 
 
 
 dependencies {
-  compile fileTree(include: ['*.jar'], dir: 'libs')
-  compile files('libs/SLog-2.0.jar')
-  compile 'com.android.support:appcompat-v7:23.4.0'
-  compile 'com.android.support:recyclerview-v7:23.4.0'
-  compile 'org.greenrobot:eventbus:3.0.0'
-  compile 'com.github.bumptech.glide:glide:3.7.0'
-  compile 'com.android.support:support-v4:23.4.0'
-  compile 'com.android.support:design:23.2.1'
-  compile 'com.google.code.gson:gson:2.8.0'
-  compile 'com.cylan.library:iotsdk:+'
-  //依赖方式改变.SDK_VERSION:最新sdk版本号.
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile files('libs/SLog-2.0.jar')
+    compile 'com.android.support:appcompat-v7:23.4.0'
+    compile 'com.android.support:recyclerview-v7:23.4.0'
+    compile 'org.greenrobot:eventbus:3.0.0'
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'com.android.support:support-v4:23.4.0'
+    compile 'com.android.support:design:23.2.1'
+    compile 'com.google.code.gson:gson:2.8.0'
+    //依赖方式改变.SDK_VERSION:最新sdk版本号.
+    compile 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
+    compile 'com.cylan.library:iotsdk:1.1.253' // 引用253版本的包
 
-  compile 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
-  compile 'com.cylan.library:iotsdk:1.0-SNAPSHOT'
-//  compile 'com.cylan.iot.sdk:iotsdk:220'
+    //  compile(group: 'com.cylan.library', name: 'iotsdk', version: '1.0-20171201.021850-42', ext: 'aar')
+    //  compile 'com.cylan.iot.sdk:iotsdk:220'
 }

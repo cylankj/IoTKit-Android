@@ -9,6 +9,31 @@
 
 ###更新说明
 
+
+#### 1.1.253
+  1.对SDK版本规范.不跟随app的版本进行.
+  2.sdk 仓库地址
+   项目grale
+  ```java 
+   allprojects {
+       repositories {
+           jcenter()
+           maven { url "http://yf.cylan.com.cn:82/artifactory/libs-release-local" }
+       }
+   }
+  ```
+  app gradle 
+  ```java
+    compile 'com.cylan.library:iotsdk:1.1.253' // 引用253版本的包
+  ```
+  
+
+
+
+
+
+  ### -------------------------------------------------
+
 #### 3.0.220
   1.修复MIUI-V8以上对讲的bug.
   

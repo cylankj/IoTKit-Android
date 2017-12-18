@@ -273,8 +273,14 @@ public class AppDemoCallBack implements AppCallBack {
     }
 
     @Override
-    public void OnBindDevRsp(int ret, String cid) {
+    public void OnBindDevRsp(int ret, String cid, String s1) {
         SLog.i("Bind dev: " + ret + " , cid: " + cid);
+    }
+
+
+    @Override
+    public void OnUpdateHistoryVideoV2(byte[] bytes) {
+
     }
 
 
@@ -327,7 +333,7 @@ public class AppDemoCallBack implements AppCallBack {
             for (Map.Entry<Long, JFGDPValue[]> e : entry.getValue().entrySet()) {
                 Long dpid = e.getKey();
                 for (JFGDPValue v : e.getValue()) {
-                    SLog.i(key + " dpid: %d , dpv: %s",dpid , v.toString());
+                    SLog.i(key + " dpid: %d , dpv: %s", dpid, v.toString());
                 }
             }
         }
