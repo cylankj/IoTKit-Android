@@ -80,7 +80,8 @@ public class JFGAppliction extends Application {
           String serverAddress = info.metaData.getString("ServerAddress");
           cmd.initNativeParam(vid, vkey, serverAddress, file.getAbsolutePath());
           //log file path .日志文件的存放路径。
-          cmd.enableLog(true, file.getAbsolutePath());
+          // if you want enable logcat ,you must add this string "|logcat"
+          cmd.enableLog(true, file.getAbsolutePath()+"|logcat");
 //          cmd.setInternalVar(getVar()); // 初始化内部属性。
           SLog.i("enable log " + file.getAbsolutePath());
 

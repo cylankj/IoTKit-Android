@@ -6,7 +6,7 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
-        applicationId "com.cylan.jfgappdemo"
+        applicationId "com.cylan.doby"
         minSdkVersion 19
         targetSdkVersion 21
         versionCode 1
@@ -17,8 +17,20 @@ android {
         }
     }
 
+
+    Properties p = new Properties()
+    p.load(project.rootProject.file('local.properties').newDataInputStream())
+
     signingConfigs {
-        release
+        config {
+            storeFile file(p['key.store'])
+            storePassword p['key.store.password']
+            keyPassword p['key.alias.password']
+            keyAlias p['key.alias']
+        }
+        release {
+
+        }
     }
 
     buildTypes {
@@ -29,15 +41,7 @@ android {
         }
         debug {
             // 请注释掉以下代码。 以下为我司本地签名文件。
-            Properties properties = new Properties()
-            properties.load(project.rootProject.file('local.properties').newDataInputStream())
-            String keyPath = properties.getProperty('key.store')
-            if (keyPath != null) {
-                android.signingConfigs.debug.storeFile = file(keyPath)
-                android.signingConfigs.debug.storePassword = properties.getProperty('key.store.password')
-                android.signingConfigs.debug.keyPassword = properties.getProperty('key.alias.password')
-                android.signingConfigs.debug.keyAlias = properties.getProperty('key.alias')
-            }
+            signingConfig signingConfigs.config
             //---------------------------------------------
         }
     }
@@ -57,23 +61,11 @@ android {
 
 }
 
-repositories{
-    flatDir{
+repositories {
+    flatDir {
         dirs 'libs'
     }
 }
-
-if (project.hasProperty('keystoreFile') &&
-        project.hasProperty('keystorePassword') &&
-        project.hasProperty('keystoreAliasPassword')) {
-    android.signingConfigs.release.storeFile = file(keystoreFile)
-    android.signingConfigs.release.storePassword = keystorePassword
-    android.signingConfigs.release.keyPassword = keystoreAliasPassword
-    android.signingConfigs.release.keyAlias = keystoreAlias
-} else {
-    android.buildTypes.release.signingConfig = null
-}
-
 
 
 dependencies {
@@ -89,7 +81,4 @@ dependencies {
     //依赖方式改变.SDK_VERSION:最新sdk版本号.
     compile 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
     compile 'com.cylan.library:iotsdk:1.1.253' // 引用253版本的包
-
-    //  compile(group: 'com.cylan.library', name: 'iotsdk', version: '1.0-20171201.021850-42', ext: 'aar')
-    //  compile 'com.cylan.iot.sdk:iotsdk:220'
 }

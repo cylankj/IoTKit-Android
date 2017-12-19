@@ -72,9 +72,9 @@ public class LoginFragment extends BaseFragment {
     public void onResume() {
         super.onResume();
         EventBus.getDefault().register(this);
-        binding.etPwd.setText("88888888");
+//        binding.etPwd.setText("88888888");
 //    binding.etPwd.setText("111111");
-        binding.etUserName.setText("cleverdog@cylan.com.cn");
+//        binding.etUserName.setText("cleverdog@cylan.com.cn");
 //    binding.etUserName.setText("18576670452");
         binding.etUserName.setSelection(binding.etUserName.getText().length());
 //        JfgAppUdpCmd.getInstance(getContext()).fping(JfgConstants.IP);
