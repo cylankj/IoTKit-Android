@@ -25,7 +25,7 @@
   ```
   app gradle 
   ```java
-    compile 'com.cylan.library:iotsdk:1.1.261' // 引用253版本的包
+    compile 'com.cylan.library:iotsdk:1.1.261' // 引用261版本的包
   ```
   
 
