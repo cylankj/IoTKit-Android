@@ -18,13 +18,14 @@
    allprojects {
        repositories {
            jcenter()
-           maven { url "http://yf.cylan.com.cn:82/artifactory/libs-release-local" }
+           //iotsdk 已上传至jcenter无需cylan研发仓库
+           //maven { url "http://yf.cylan.com.cn:82/artifactory/libs-release-local" }
        }
    }
   ```
   app gradle 
   ```java
-    compile 'com.cylan.library:iotsdk:1.1.253' // 引用253版本的包
+    compile 'com.cylan.library:iotsdk:1.1.261' // 引用253版本的包
   ```
   
 
